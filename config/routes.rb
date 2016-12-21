@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'auth/facebook/callback', to: 'auth#facebook'
+  get 'auth/facebook/callback', to: 'sessions#create'
   root 'static#index'
-  get '/after_redirect', to: 'static#after_redirect'
 end
