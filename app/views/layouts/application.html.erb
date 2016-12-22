@@ -9,6 +9,12 @@
   </head>
 
   <body>
+    <% if logged_in? %>
+      <%= link_to 'Home', root_url %><br>
+      <%= link_to 'logout', logout_path %><br>
+    <% else %>
+      <%= link_to 'login', login_path %><br>
+    <% end %>
     <%= yield %>
   </body>
 </html>

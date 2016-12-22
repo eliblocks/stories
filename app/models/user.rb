@@ -17,4 +17,15 @@ class User < ApplicationRecord
     #need to test other age ranges
     self.age_range = auth.extra.raw_info.age_range.min.join
   end
+
+  def age_group
+    case self.age_range
+    when 'min21'
+      'Over 21'
+    when 'max20'
+      'Over 18'
+    when 'max17'
+      'Under 18'
+    end
+  end
 end

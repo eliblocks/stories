@@ -29,6 +29,10 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'omniauth-facebook'
 
+#gem 'sprockets-rails', :require => 'sprockets/railtie'
+
+#gem 'bootstrap', '~> 4.0.0.alpha5'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
