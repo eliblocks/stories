@@ -1,5 +1,9 @@
 class User < ApplicationRecord
 
+  has_many :stories
+  validates :email, presence: true, uniqueness: true
+  validates :facebook_id, presence: true, uniqueness: true
+
   def process(auth)
     self.email = auth.info.email
     self.name = auth.info.name

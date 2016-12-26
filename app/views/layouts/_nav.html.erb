@@ -1,0 +1,9 @@
+<nav class="navbar navbar-light bg-faded">
+  <div class="nav navbar-nav">
+    <%= link_to "Home", root_url, class: "nav-item nav-link" %>
+    <%= link_to "Stories", stories_path, class: "nav-item nav-link" %>
+    <%= link_to "Users", users_path, class: "nav-item nav-link" %>
+    <%= link_to "Profile", user_path(current_user), class: "nav-item nav-link" %>
+    <%= link_to "logout", logout_path, class: "nav-item nav-link" %>
+  </div>
+</nav>

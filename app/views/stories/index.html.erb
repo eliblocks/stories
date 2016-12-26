@@ -1,0 +1,23 @@
+<table class="table">
+  <thead class="thead">
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @stories.each do |story| %>
+      <tr>
+        <td><%= link_to story.title, story_path(story) %></td>
+        <td><%= link_to story.user.name, user_path(story.user) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div class="row">
+  <div class="col-md-4">
+    <%= link_to "New Story", new_story_path, class: "btn btn-primary" %>
+  </div>
+</div>
+
+

@@ -29,10 +29,11 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'omniauth-facebook'
 
-#gem 'sprockets-rails', :require => 'sprockets/railtie'
+gem 'sprockets-rails', :require => 'sprockets/railtie'
 
-#gem 'bootstrap', '~> 4.0.0.alpha5'
+gem 'bootstrap', '~> 4.0.0.alpha5'
 
+gem 'pdf-reader'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -52,3 +53,12 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+
+#source 'https://rails-assets.org' do
+#  gem 'rails-assets-tether', '>= 1.1.0'
+#end
+
+
+
+

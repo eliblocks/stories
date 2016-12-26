@@ -10,11 +10,12 @@
 
   <body>
     <% if logged_in? %>
-      <%= link_to 'Home', root_url %><br>
-      <%= link_to 'logout', logout_path %><br>
+      <%= render 'layouts/nav' %>
+      <div class="container-fluid">
+        <%= yield %>
+      </div>
     <% else %>
-      <%= link_to 'login', login_path %><br>
+      <%= link_to 'login', login_path %>
     <% end %>
-    <%= yield %>
   </body>
 </html>

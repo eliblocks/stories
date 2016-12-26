@@ -1,7 +1,16 @@
-<h1>Profile</h1>
-<ul>
-  <li><%= @user.name %></li>
-  <li><%= @user.email %></li>
-  <li><%= @user.age_group %></li>
-</ul>
-<%=link_to 'all users', users_path %>
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <%= image_tag @user.image, class: "card-img-top", alt: "Card image cap" %>
+      <div class="card-block">
+        <h4 class="card-title"><%= @user.name %></h4>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><%= @user.gender %></li>
+        <li class="list-group-item"><%= @user.email %></li>
+        <li class="list-group-item"><%= @user.age_group %></li>
+      </ul>
+    </div>
+    <%=link_to 'all users', users_path %>
+  </div>
+</div>
