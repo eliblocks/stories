@@ -13,14 +13,26 @@ class StoriesController < ApplicationController
   end
 
   def create
-    @story = current_user.stories.create!(story_params)
-    redirect_to stories_path
+    @story = current_user.stories.new(story_params)
+    if @story.save
+      flash[:success] = "Story successfully created"
+      redirect_to stories_path
+    else
+      render new_story_path
+    end
   end
 
   def edit
   end
 
   def update
+    if @story.update(story_params)
+      flash[:success] = "Story successfully edited"
+      redirect_to story_path(@story)
+    else
+      render 'edit'
+    end
+
   end
 
   def destroy

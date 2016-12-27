@@ -1,0 +1,40 @@
+<% if @story.errors.any? %>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card alert alert-danger">
+        <h4 class="card-title">
+          The form contains <%= pluralize(@story.errors.count, "error") %>.
+        </h4>
+        <ul class="list-group list-group-flush">
+          <% @story.errors.full_messages.each do |msg| %>
+            <li class="list-group-item"><%= msg %></li>
+          <% end %>
+        </ul>
+      </div> 
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-8">
+    <%= form_for @story do |f| %>
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :body %>
+        <%= f.text_area :body, rows: 20, class: "form-control" %>
+      </div>
+        
+        <%= f.submit "Submit", class: "btn btn-primary" %>
+
+    <% end %>
+  </div>
+</div>
