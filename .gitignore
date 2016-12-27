@@ -20,5 +20,3 @@
 # Ignore Byebug command history file.
 .byebug_history
 
-#ignore oniauth config file since keys are stored directly
-/config/initializers/omniauth.rb
