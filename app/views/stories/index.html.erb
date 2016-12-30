@@ -13,7 +13,7 @@
         <td><%= link_to story.user.name, user_path(story.user) %></td>
         <td>
             <%= link_to "Edit", edit_story_path(story) %> |
-            <%= link_to "Delete", stories_path(story), method: :delete %>
+            <%= link_to "Delete", story_path(story), method: :delete %>
         </td>
       </tr>
     <% end %>

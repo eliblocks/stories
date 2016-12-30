@@ -1,5 +1,5 @@
 class StoriesController < ApplicationController
-  before_action :set_story, only: [:show, :edit, :update, :delete]
+  before_action :set_story, only: [:show, :edit, :update, :destroy]
 
   def index
     @stories = Story.all
@@ -18,7 +18,7 @@ class StoriesController < ApplicationController
       flash[:success] = "Story successfully created"
       redirect_to stories_path
     else
-      render new_story_path
+      render 'new'
     end
   end
 
@@ -36,6 +36,9 @@ class StoriesController < ApplicationController
   end
 
   def destroy
+    @story.destroy
+    flash[:success] = "Story successfully deleted"
+    redirect_to request.referrer || root_url
   end
 
   private
