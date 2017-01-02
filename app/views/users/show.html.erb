@@ -12,4 +12,28 @@
       </ul>
     </div>
   </div>
+  <div class="col-md-6">
+    <table class="table">
+      <thead class="thead">
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user.stories.each do |story| %>
+          <tr>
+            <td><%= link_to story.title, story_path(story) %></td>
+            <td><%= link_to story.user.name, user_path(story.user) %></td>
+            <td>
+                <%= link_to "Edit", edit_story_path(story) %> |
+                <%= link_to "Delete", story_path(story), method: :delete %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
+  

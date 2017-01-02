@@ -1,8 +1,75 @@
 class User < ApplicationRecord
 
   has_many :stories
+  has_many :active_relationships, class_name:   "Relationship",
+                                  foreign_key:  "follower_id",
+                                  dependent:    :destroy
+  has_many :passive_relationships, class_name:    "Relationship",
+                                   foreign_key:  "followed_id",
+                                   dependent:    :destroy
+
+  has_many :following, through: :active_relationships, source: :followed
+  has_many :followers, through: :passive_relationships, source: :follower
+
   validates :email, presence: true, uniqueness: true
   validates :facebook_id, presence: true, uniqueness: true
+
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
+  def blocking
+    blocked = active_relationships.where(block: 't').pluck(:followed_id)
+    User.where(id: blocked)
+  end
+
+  def favoriting
+    favorited = active_relationships.where(block: 'f').pluck(:followed_id)
+    User.where(id: favorited)
+  end
+
+  def favorite(other_user)
+    follow(other_user)
+  end
+
+  def unfavorite(other_user)
+    unfollow(other_user)
+  end
+
+  def unblock(other_user)
+    unfollow(other_user)
+  end
+
+  def follow(other_user)
+    following << other_user
+  end
+
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
+  def favoriting?(other_user)
+    following.include?(other_user) && active_relationship(other_user).block == false
+  end
+
+  def blocking?(other_user)
+    following.include?(other_user) && active_relationship(other_user).block == true
+  end
+
+  def active_relationship(other_user)
+    active_relationships.find_by(followed_id: other_user.id)
+  end
+
+  def passive_relationship(other_user)
+    passive_relationship.find_by(follower_id: other_user.id)
+  end
+
+  def block_user(other_user)
+    if active_relationship(other_user)
+      active_relationship(other_user).destroy
+    end
+    active_relationships.create!(followed_id: other_user.id, block: true)
+  end
 
   def process(auth)
     self.email = auth.info.email
@@ -18,7 +85,6 @@ class User < ApplicationRecord
     self.timezone = auth.extra.raw_info.timezone
     self.updated_time = auth.extra.raw_info.updated_time
     self.locale = auth.extra.raw_info.locale
-    #need to test other age ranges
     self.age_range = auth.extra.raw_info.age_range.min.join
   end
 
