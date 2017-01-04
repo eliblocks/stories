@@ -9,3 +9,26 @@
     <%= story_format(@story.body) %>
   </div>
 </div>
+
+<div class="row">
+  <div class="offset-md-2 col-md-2">
+    <% if current_user.favoriting?(@story.user) %>
+      <%= button_to "Unfavorite", relationship_path(current_user.active_relationship(@story.user)), 
+          class: "btn btn-success", method: :delete,
+          params: { follower_id: current_user.id, followed_id: @story.user.id } %>
+    <% elsif !current_user.blocking?(@story.user) %>
+      <%= button_to "Favorite", relationships_path, class: "btn btn-success", 
+          params: {follower_id: current_user.id, followed_id: @story.user.id, block: false} %>
+    <% end %>
+  </div>
+  <div class="col-md-2">
+    <% if current_user.blocking?(@story.user) %>
+      <%= button_to "Unhide", relationship_path(current_user.active_relationship(@story.user)), 
+          class: "btn btn-danger", method: :delete,
+          params: {follower_id: current_user.id, followed_id: @story.user.id } %>
+    <% else %>
+      <%= button_to "Hide", relationships_path, class: "btn btn-danger",
+        params: {follower_id: current_user.id, followed_id: @story.user.id, block: true} %>
+    <% end %> 
+  </div>
+</div>

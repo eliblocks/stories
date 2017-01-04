@@ -41,6 +41,7 @@ class StoriesController < ApplicationController
     redirect_to request.referrer || root_url
   end
 
+
   private
 
   def set_story

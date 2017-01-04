@@ -1,24 +1,43 @@
-<table class="table">
-  <thead class="thead">
-    <tr>
-      <th>Title</th>
-      <th>Author</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @stories.each do |story| %>
-      <tr>
-        <td><%= link_to story.title, story_path(story) %></td>
-        <td><%= link_to story.user.name, user_path(story.user) %></td>
-        <td>
-            <%= link_to "Edit", edit_story_path(story) %> |
-            <%= link_to "Delete", story_path(story), method: :delete %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+
+<% @stories.each do |story| %>
+  <% unless current_user.blocking?(story.user) %>
+    <div class="row story-row">
+      <div class="col-md-1 story-favorites">
+        <% if current_user.favoriting?(story.user) %>
+          <%= button_to "#{story.favorite_count} unfavorite",
+            relationship_path(current_user.active_relationship(story.user)), method: :delete,
+            class: "btn btn-sm btn-secondary",
+            params: { follower_id: current_user.id, followed_id: story.user.id } %>
+          
+        <% else %>
+          <%= button_to "#{story.favorite_count} favorited", relationships_path, 
+            class: "btn btn-success btn-sm", params: { follower_id: current_user.id, 
+                                               followed_id: story.user.id, 
+                                               story_id: story.id,
+                                               block: false } %>
+        <% end %>
+      </div>
+      <div class="col-md-1 story-hidden">
+        <%= button_to "#{story.block_count} hidden", relationships_path,
+          class: "btn btn-danger btn-sm", params: { follower_id: current_user.id,
+                                              followed_id: story.user.id,
+                                              story_id: story.id,
+                                              block: true } %>
+      </div>
+      <div class="col-md-2 story-title">
+        <h6><%= link_to story.title, story_path(story) %></h6> 
+      </div>
+      <div class="col-md-2 story-author">
+        <h6><%= link_to story.user.name, user_path(story.user) %></h6>
+      </div>     
+      <div class="col-md-5 story-description">
+        <%= story.description %>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
 <div class="row">
   <div class="col-md-4">
     <%= link_to "New Story", new_story_path, class: "btn btn-primary" %>

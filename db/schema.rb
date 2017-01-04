@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161231213418) do
+ActiveRecord::Schema.define(version: 20170104001137) do
 
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id"
@@ -18,9 +18,11 @@ ActiveRecord::Schema.define(version: 20161231213418) do
     t.boolean  "block",       default: false
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.integer  "story_id"
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+    t.index ["story_id"], name: "index_relationships_on_story_id"
   end
 
   create_table "stories", force: :cascade do |t|

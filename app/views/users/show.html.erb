@@ -10,6 +10,30 @@
         <li class="list-group-item"><%= @user.email %></li>
         <li class="list-group-item"><%= @user.age_group %></li>
       </ul>
+      <div class="card-block">
+        <div class="row">
+          <div class="col-md-6">
+            <% if current_user.favoriting?(@user) %>
+              <%= button_to "Unfavorite", relationship_path(current_user.active_relationship(@user)), 
+                  class: "btn btn-success", method: :delete,
+                  params: { follower_id: current_user.id, followed_id: @user.id } %>
+            <% elsif !current_user.blocking?(@user) %>
+              <%= button_to "Favorite", relationships_path, class: "btn btn-success", 
+                  params: {follower_id: current_user.id, followed_id: @user.id, block: false} %>
+            <% end %>
+          </div>
+          <div class="col-md-2">
+            <% if current_user.blocking?(@user) %>
+              <%= button_to "Unhide", relationship_path(current_user.active_relationship(@user)), 
+                  class: "btn btn-danger", method: :delete,
+                  params: {follower_id: current_user.id, followed_id: @user.id } %>
+            <% else %>
+              <%= button_to "Hide", relationships_path, class: "btn btn-danger",
+                params: {follower_id: current_user.id, followed_id: @user.id, block: true} %>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="col-md-6">

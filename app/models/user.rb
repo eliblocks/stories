@@ -64,19 +64,19 @@ class User < ApplicationRecord
     passive_relationship.find_by(follower_id: other_user.id)
   end
 
-  def block_user(other_user)
+  def block_user(other_user, story = nil)
     if active_relationship(other_user)
       active_relationship(other_user).destroy
     end
-    active_relationships.create!(followed_id: other_user.id, block: true)
+    active_relationships.create!(followed_id: other_user.id, block: true, story_id: (story.id if story))
   end
 
   def process(auth)
-    self.email = auth.info.email
+    self.email ||= auth.info.email
     self.name = auth.info.name
     self.image = auth.info.image
     self.verified = auth.info.verified
-    self.facebook_id = auth.extra.raw_info.id
+    self.facebook_id ||= auth.extra.raw_info.id
     self.first_name = auth.extra.raw_info.first_name
     self.last_name = auth.extra.raw_info.last_name
     self.link = auth.extra.raw_info.link

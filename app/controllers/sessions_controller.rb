@@ -8,6 +8,8 @@ class SessionsController < ApplicationController
     @auth = request.env['omniauth.auth']
     if User.find_by(email: @auth.info.email)
       @user = User.find_by(email: @auth.info.email)
+      @user.process(@auth)
+      @user.save
     else
       @user = User.new
       @user.process(@auth)
