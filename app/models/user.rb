@@ -28,8 +28,18 @@ class User < ApplicationRecord
     User.where(id: favorited)
   end
 
-  def favorite(other_user)
-    follow(other_user)
+  def favorite(other_user, story = nil)
+    active_relationships.create!(followed_id: other_user.id,
+                                  block: false,
+                                  story_id: (story.id if story))
+  end
+
+  def block_user(other_user, story = nil)
+    if active_relationship(other_user)
+      active_relationship(other_user).destroy
+    end
+    active_relationships.create!(followed_id: other_user.id,
+                block: true, story_id: (story.id if story))
   end
 
   def unfavorite(other_user)
@@ -49,11 +59,13 @@ class User < ApplicationRecord
   end
 
   def favoriting?(other_user)
-    following.include?(other_user) && active_relationship(other_user).block == false
+    following.include?(other_user) &&
+    active_relationship(other_user).block == false
   end
 
   def blocking?(other_user)
-    following.include?(other_user) && active_relationship(other_user).block == true
+    following.include?(other_user) &&
+    active_relationship(other_user).block == true
   end
 
   def active_relationship(other_user)
@@ -64,11 +76,8 @@ class User < ApplicationRecord
     passive_relationship.find_by(follower_id: other_user.id)
   end
 
-  def block_user(other_user, story = nil)
-    if active_relationship(other_user)
-      active_relationship(other_user).destroy
-    end
-    active_relationships.create!(followed_id: other_user.id, block: true, story_id: (story.id if story))
+  def favorite_stories
+    Story.where(user_id: favoriting.ids)
   end
 
   def process(auth)
