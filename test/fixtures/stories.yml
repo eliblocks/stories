@@ -1,11 +1,12 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyString
-  description: MyText
-  body: MyText
+valid_story_one:
+  title: The Murderer
+  description: Description of the murderer story.
+  body: File.read('pdf/murderer.txt')
 
-two:
-  title: MyString
-  description: MyText
-  body: MyText
+valid_story_two:
+  title: The Garbage Collector
+  description: Short summary of The Garbage Collector.
+  body: <%= File.read('pdf/the_garbage_collector.txt') %>
+

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'static#index'
+  root 'stories#index'
+  get 'landing', to: 'static#landing'
   get 'auth/facebook/callback', to: 'sessions#create'
   get 'login', to: 'sessions#new'
   get 'logout', to: 'sessions#destroy'

@@ -14,6 +14,7 @@ gem 'omniauth-facebook'
 gem 'sprockets-rails', :require => 'sprockets/railtie'
 gem 'bootstrap', '~> 4.0.0.alpha5'
 gem 'pdf-reader'
+gem 'font-awesome-rails'
 #gem 'capistrano-rails', group: :development
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 

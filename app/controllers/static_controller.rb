@@ -1,6 +1,6 @@
 class StaticController < ApplicationController
 
-  def index
+  def landing
   end
 
   def after_redirect

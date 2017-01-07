@@ -1,5 +1,6 @@
 class RelationshipsController < ApplicationController
   before_action :set_relationship, only: [:destroy]
+  before_action :set_story, only: [:create]
 
   def index
     @favorites = current_user.favorite_stories
@@ -12,12 +13,10 @@ class RelationshipsController < ApplicationController
   def create
     if params[:block] == "false"
       current_user.favorite(other_user, @story)
-      flash[:success] = "Favorited user"
       redirect_back fallback_location: root_url
     elsif params[:block] == "true"
       current_user.unfollow(other_user) if current_user.following?(other_user)
       current_user.block_user(other_user, @story)
-      flash[:success] = "Blocked user"
       redirect_to root_url
     else
       debugger
@@ -26,7 +25,6 @@ class RelationshipsController < ApplicationController
 
   def destroy
     current_user.unfollow(other_user)
-    flash.now[:success] = "unfollowed"
     redirect_back fallback_location: root_url
   end
 

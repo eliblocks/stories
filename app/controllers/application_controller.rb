@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize
-    unless [root_url, login_url].include?(request.url) ||
+    unless [landing_url, login_url].include?(request.url) ||
             logged_in? ||
             request.env['omniauth.auth']
-      redirect_to root_url
+      redirect_to landing_url
     end
   end
 end

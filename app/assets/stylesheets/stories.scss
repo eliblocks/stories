@@ -2,6 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+$gray-dark:                 #292b2c !default;
+
 .story-body {
   margin-top: 25px;
 }
@@ -22,7 +25,9 @@
     text-align: center;
     vertical-align: middle
   }
-
-
 }
+
+.btn-pressed { 
+  background-color: #eceeef !important;
+  }
 
