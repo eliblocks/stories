@@ -1,27 +1,11 @@
 <% @favorites.each do |story| %>
   <div class="row story-row">
     <div class="col-md-1 story-favorites">
-      <%= button_to "#{story.favorite_count} unfavorite",
-        relationship_path(current_user.active_relationship(story.user)), method: :delete,
-        class: "btn btn-sm btn-secondary",
-        params: { follower_id: current_user.id, followed_id: story.user.id } %>
-        
+      <%= render 'shared/unfavorite', story: story %>
     </div>
     <div class="col-md-1 story-hidden">
-      <%= button_to "#{story.block_count} hidden", relationships_path,
-        class: "btn btn-danger btn-sm", params: { follower_id: current_user.id,
-                                            followed_id: story.user.id,
-                                            story_id: story.id,
-                                            block: true } %>
+      <%= render 'shared/block', story: story %>
     </div>
-    <div class="col-md-2 story-title">
-      <h6><%= link_to story.title, story_path(story) %></h6> 
-    </div>
-    <div class="col-md-2 story-author">
-      <h6><%= link_to story.user.name, user_path(story.user) %></h6>
-    </div>     
-    <div class="col-md-5 story-description">
-      <%= story.description %>
-    </div>
+    <%= render 'shared/story_list', story: story %>
   </div>
 <% end %>

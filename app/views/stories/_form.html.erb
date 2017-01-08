@@ -1,6 +1,6 @@
 <% if @story.errors.any? %>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <div class="card alert alert-danger">
         <h4 class="card-title">
           The form contains <%= pluralize(@story.errors.count, "error") %>.
@@ -16,7 +16,7 @@
 <% end %>
 
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-12">
     <%= form_for @story do |f| %>
       <div class="form-group">
         <%= f.label :title %>

@@ -1,0 +1,5 @@
+<%= button_to relationship_path(current_user.active_relationship(user)),
+              class: "btn btn-secondary active",
+              method: :delete do %>
+  <i class="fa fa-times"></i>
+<% end %>

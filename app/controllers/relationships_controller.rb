@@ -30,10 +30,6 @@ class RelationshipsController < ApplicationController
 
   private
 
-  def relationships_params
-    params.permit(:follower_id, :followed_id, :block, :story_id)
-  end
-
   def other_user
     if params[:followed_id]
       User.find(params[:followed_id])
@@ -42,6 +38,10 @@ class RelationshipsController < ApplicationController
     elsif params[:id]
       User.find(@relationship.followed_id)
     end
+  end
+
+  def relationships_params
+    params.permit(:follower_id, :followed_id, :block, :story_id)
   end
 
   def set_relationship

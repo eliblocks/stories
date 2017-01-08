@@ -11,14 +11,13 @@
   <body>
     <% if logged_in? %>
       <%= render 'layouts/nav' %>
-      <div class="container-fluid">
+    <% end %>
+
+    <div class="container-fluid">
       <% flash.each do |message_type, message| %>
         <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
       <% end %>
-        <%= yield %>
-      </div>
-    <% else %>
-      <%= link_to 'login', login_path %>
-    <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>

@@ -9,9 +9,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= button_to "Unhide", 
-                relationship_path(current_user.active_relationship(user)), 
-                method: :delete %>
+        <td><%= render 'shared/unblock', user: user %></td>
         <td><%= link_to user.name, user_path(user) %></td>
         <td><%= user.email %></td>
       </tr>
