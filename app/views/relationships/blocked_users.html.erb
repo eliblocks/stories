@@ -9,7 +9,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= render 'shared/unblock', user: user %></td>
+        <td><%= unfollow_button(user, true) %></td>
         <td><%= link_to user.name, user_path(user) %></td>
         <td><%= user.email %></td>
       </tr>

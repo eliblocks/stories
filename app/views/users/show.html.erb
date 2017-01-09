@@ -14,16 +14,16 @@
         <div class="row">
           <div class="col-md-6">
             <% if current_user.favoriting?(@user) %>
-              <%= unfavorite_button(@user) %>
+              <%= unfollow_button(@user, false) %>
             <% elsif !current_user.blocking?(@user) %>
-              <%= favorite_button(@user) %>
+              <%= follow_button(@user, false) %>
             <% end %>
           </div>
           <div class="col-md-2">
             <% if current_user.blocking?(@user) %>
-              <%= unhide_button(@user) %>
+              <%= unfollow_button(@user, true) %>
             <% else %>
-              <%= hide_button(@user) %>
+              <%= follow_button(@user, true) %>
             <% end %>
           </div>
         </div>

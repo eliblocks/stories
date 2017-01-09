@@ -33,7 +33,7 @@ class User < ApplicationRecord
   end
 
   def blockers
-    active_relationships.where(block: true)
+    passive_relationships.where(block: true)
   end
 
   def favorite(other_user, story = nil)
@@ -90,6 +90,10 @@ class User < ApplicationRecord
 
   def favorite_count
     favoriters.count
+  end
+
+  def block_count
+    blockers.count
   end
 
   def process(auth)

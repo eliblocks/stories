@@ -1,39 +1,28 @@
 module ApplicationHelper
 
-  def favorite_button(object)
-    favorite_params = { follower_id: current_user.id,
-                        followed_id: followed_id(object),
-                        story_id: story_id(object),
-                        block: false }
-    render 'shared/favorite', favorite_params: favorite_params, count: count(object)
+
+  def unfollow_button(object, type)
+    unfollow_params = { story_id: story_id(object),
+                        block: type }
+
+    render 'shared/unfollow', unfollow_params: unfollow_params,
+                              count: count(object, type),
+                              icon: type == true ? "fa fa-times" : "fa fa-heart",
+                              relationship: find_relationship(object)
   end
 
-  def unfavorite_button(object)
-    unfavorite_params = { follower_id: current_user.id,
-                          story_id: story_id(object) }
-    render 'shared/unfavorite', unfavorite_params: unfavorite_params,
-                                count: count(object),
-                                relationship: find_relationship(object)
+  def follow_button(object, type)
+    follow_params = { followed_id: followed_id(object),
+                      story_id: story_id(object),
+                      block: type }
+
+    render 'shared/follow', follow_params: follow_params,
+                            count: count(object, type),
+                            icon: type == true ? "fa fa-times" : "fa fa-heart"
   end
 
-  def hide_button(object)
-    hide_params = { follower_id: current_user.id,
-                    followed_id: followed_id(object),
-                    story_id: story_id(object),
-                    block: true }
-    render 'shared/block', hide_params: hide_params, count: count(object)
-  end
-
-  def unhide_button(object)
-    unhide_params = { follower_id: current_user.id,
-                      story_id: story_id(object) }
-    render 'shared/unblock', unhide_params: unhide_params,
-                            count: count(object),
-                            relationship: find_relationship(object)
-  end
-
-  def count(object)
-    object.favorite_count
+  def count(object, type)
+    type == true ? object.block_count : object.favorite_count
   end
 
   def followed_id(object)

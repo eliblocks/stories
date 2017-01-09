@@ -1,10 +1,10 @@
 <% @favorites.each do |story| %>
   <div class="row story-row">
     <div class="col-md-1 story-favorites">
-      <%= unfavorite_button(story) %>
+      <%= unfollow_button(story, false) %>
     </div>
     <div class="col-md-1 story-hidden">
-      <%= hide_button(story) %>
+      <%= follow_button(story, false) %>
     </div>
     <%= render 'shared/story_list', story: story %>
   </div>

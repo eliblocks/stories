@@ -4,13 +4,13 @@
     <div class="row story-row">
       <div class="col-md-1 story-favorites">
         <% if current_user.favoriting?(story.user) %>
-          <%= unfavorite_button(story) %>
+          <%= unfollow_button(story, false) %>
         <% else %>
-          <%= favorite_button(story) %>
+          <%= follow_button(story, false) %>
         <% end %>
       </div>
       <div class="col-md-1 story-hidden">
-        <%= hide_button(story) %>
+        <%= follow_button(story, true) %>
       </div>
       <%= render 'shared/story_list', story: story %>
     </div>
