@@ -13,7 +13,7 @@ module ApplicationHelper
                           story_id: story_id(object) }
     render 'shared/unfavorite', unfavorite_params: unfavorite_params,
                                 count: count(object),
-                                relationship: relationship(object)
+                                relationship: find_relationship(object)
   end
 
   def hide_button(object)
@@ -24,6 +24,14 @@ module ApplicationHelper
     render 'shared/block', hide_params: hide_params, count: count(object)
   end
 
+  def unhide_button(object)
+    unhide_params = { follower_id: current_user.id,
+                      story_id: story_id(object) }
+    render 'shared/unblock', unhide_params: unhide_params,
+                            count: count(object),
+                            relationship: find_relationship(object)
+  end
+
   def count(object)
     object.favorite_count
   end
@@ -32,7 +40,7 @@ module ApplicationHelper
     if object.class == Story
       return object.user.id
     else
-      return user.id
+      return object.id
     end
   end
 
@@ -44,7 +52,7 @@ module ApplicationHelper
     end
   end
 
-  def relationship(object)
+  def find_relationship(object)
     current_user.active_relationship(User.find(followed_id(object)))
   end
 

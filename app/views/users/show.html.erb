@@ -14,16 +14,16 @@
         <div class="row">
           <div class="col-md-6">
             <% if current_user.favoriting?(@user) %>
-              <%= render 'shared/unfavorite', user: @user %>
+              <%= unfavorite_button(@user) %>
             <% elsif !current_user.blocking?(@user) %>
-              <%= render 'shared/favorite', user: @user %>
+              <%= favorite_button(@user) %>
             <% end %>
           </div>
           <div class="col-md-2">
             <% if current_user.blocking?(@user) %>
-              <%= render 'shared/unblock', user: @user %>
+              <%= unhide_button(@user) %>
             <% else %>
-              <%= render 'shared/block', user: @user %>
+              <%= hide_button(@user) %>
             <% end %>
           </div>
         </div>

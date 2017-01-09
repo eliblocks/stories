@@ -28,6 +28,14 @@ class User < ApplicationRecord
     User.where(id: favorited)
   end
 
+  def favoriters
+    passive_relationships.where(block: false)
+  end
+
+  def blockers
+    active_relationships.where(block: true)
+  end
+
   def favorite(other_user, story = nil)
     active_relationships.create!(followed_id: other_user.id,
                                   block: false,
@@ -78,6 +86,10 @@ class User < ApplicationRecord
 
   def favorite_stories
     Story.where(user_id: favoriting.ids)
+  end
+
+  def favorite_count
+    favoriters.count
   end
 
   def process(auth)

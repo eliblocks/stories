@@ -1,5 +1,6 @@
-<%= button_to relationship_path(current_user.active_relationship(user)),
-              class: "btn btn-secondary active",
+<%= button_to relationship_path(relationship),
+              class: "btn btn-sm btn-secondary active",
+              params: unhide_params,
               method: :delete do %>
-  <i class="fa fa-times"></i>
+  <i class="fa fa-times"> <%= count %></i>
 <% end %>
