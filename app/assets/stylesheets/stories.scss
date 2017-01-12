@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+
 $gray-dark:                 #292b2c !default;
 
 .story-body {
@@ -30,5 +31,32 @@ $gray-dark:                 #292b2c !default;
 h1 {
   text-align: center;
 }
+
+
+.pagination span {
+  position: relative;
+  display: block;
+  padding: $pagination-padding-y $pagination-padding-x;
+  margin-left: -1px;
+  line-height: $pagination-line-height;
+  color: $pagination-color;
+  background-color: $pagination-bg;
+  border: $pagination-border-width solid $pagination-border-color;
+
+  @include hover-focus {
+    color: $pagination-hover-color;
+    text-decoration: none;
+    background-color: $pagination-hover-bg;
+    border-color: $pagination-hover-border;
+  }
+
+  &.current {
+    z-index: 2;
+    color: $pagination-active-color;
+    background-color: $pagination-active-bg;
+    border-color: $pagination-active-border;
+  }
+}
+
 
 

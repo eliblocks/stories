@@ -1,21 +1,27 @@
-
-<% @stories.each do |story| %>
-  <% unless current_user.blocking?(story.user) %>
-    <div class="row story-row">
-      <div class="col-md-1 story-favorites">
-        <% if current_user.favoriting?(story.user) %>
-          <%= unfollow_button(story, false) %>
-        <% else %>
-          <%= follow_button(story, false) %>
-        <% end %>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <%= render template: 'categories/index' %>
+  </div>
+</div>
+<%= paginate @stories %>
+  <% @stories.each do |story| %>
+    <% unless current_user.blocking?(story.user) %>
+      <div class="row story-row">
+        <div class="col-md-1 story-favorites">
+          <% if current_user.favoriting?(story.user) %>
+            <%= unfollow_button(story, false) %>
+          <% else %>
+            <%= follow_button(story, false) %>
+          <% end %>
+        </div>
+        <div class="col-md-1 story-hidden">
+          <%= follow_button(story, true) %>
+        </div>
+        <%= render 'shared/story_list', story: story %>
       </div>
-      <div class="col-md-1 story-hidden">
-        <%= follow_button(story, true) %>
-      </div>
-      <%= render 'shared/story_list', story: story %>
-    </div>
+    <% end %>
   <% end %>
-<% end %>
+<%= paginate @stories %>
 
 
 

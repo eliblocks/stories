@@ -88,6 +88,14 @@ class User < ApplicationRecord
     Story.where(user_id: favoriting.ids)
   end
 
+  def blocked_stories
+    Story.where(user_id: blocking.ids)
+  end
+
+  def unblocked_stories
+    Story.where.not(user_id: blocking.ids)
+  end
+
   def favorite_count
     favoriters.count
   end

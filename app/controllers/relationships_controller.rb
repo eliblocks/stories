@@ -1,6 +1,6 @@
 class RelationshipsController < ApplicationController
   before_action :set_relationship, only: [:destroy]
-  before_action :set_story, only: [:create]
+  before_action :set_story, only: [:create, :destroy]
 
   def index
     @favorites = current_user.favorite_stories
@@ -11,24 +11,45 @@ class RelationshipsController < ApplicationController
   end
 
   def create
+    follow_other_user
+    increment_story_count
+    redirect_after_vote
+  end
+
+  def destroy
+    current_user.unfollow(other_user)
+    decrement_story_count
+    redirect_back fallback_location: root_url
+  end
+
+  private
+
+  def follow_other_user
     if params[:block] == "false"
       current_user.favorite(other_user, @story)
-      redirect_after_vote
     elsif params[:block] == "true"
       current_user.unfollow(other_user) if current_user.following?(other_user)
       current_user.block_user(other_user, @story)
-      redirect_after_vote
     else
       debugger
     end
   end
 
-  def destroy
-    current_user.unfollow(other_user)
-    redirect_back fallback_location: root_url
+  def increment_story_count
+    if params[:block] == "true" && @story
+      Story.increment_counter(:blocks_count, @story.id)
+    elsif params[:block] == "false" && @story
+      Story.increment_counter(:favorites_count, @story.id)
+    end
   end
 
-  private
+  def decrement_story_count
+    if params[:block] == "true"
+      Story.decrement_counter(:blocks_count, @relationship.story_id)
+    elsif params[:block] = "false"
+      Story.decrement_counter(:favorites_count, @relationship.story_id)
+    end
+  end
 
   def other_user
     if params[:followed_id]
@@ -60,7 +81,7 @@ class RelationshipsController < ApplicationController
       request.referer == story_url(@story)
       redirect_back fallback_location: root_url
     else
-      debugger
+      redirect_back fallback_location: root_url
     end
   end
 end

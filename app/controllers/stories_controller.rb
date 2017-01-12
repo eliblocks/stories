@@ -2,10 +2,12 @@ class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update, :destroy]
 
   def index
-    @stories = Story.all
+    @stories = current_user.unblocked_stories.page(params[:page]).per(9)
+    @categories = Category.all
   end
 
   def show
+
   end
 
   def new
@@ -41,7 +43,6 @@ class StoriesController < ApplicationController
     redirect_to request.referrer || root_url
   end
 
-
   private
 
   def set_story
@@ -49,6 +50,6 @@ class StoriesController < ApplicationController
   end
 
   def story_params
-    params.require(:story).permit(:title, :body, :description)
+    params.require(:story).permit(:title, :body, :description, :category_id)
   end
 end

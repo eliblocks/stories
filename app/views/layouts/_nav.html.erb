@@ -1,16 +1,16 @@
-<nav class="navbar navbar-light bg-faded">
+<nav class="navbar navbar-light navbar-toggleable-md bg-faded">
   <ul class="nav navbar-nav">
     <li class="nav-item">
-      <%= link_to "Stories", stories_path, class: "nav-link" %>
+      <%= link_to "Stories", stories_path, class: "nav-link#{active_if(stories_path)}" %>
     </li>
     <li class="nav-item">
-      <%= link_to "Favorites", relationships_path, class: "nav-link" %>
+      <%= link_to "Favorites", relationships_path, class: "nav-link#{active_if(relationships_path)}" %>
     </li>
     <li class="nav-item">
-      <%= link_to "Submit", new_story_path, class: "nav-link" %>
+      <%= link_to "Submit", new_story_path, class: "nav-link#{active_if(new_story_path)}" %>
     </li>
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="http://example.com" 
+      <a class="nav-link dropdown-toggle<%= active_if('dropdown') %>" href="http://example.com" 
         id="supportedContentDropdown" data-toggle="dropdown" 
         aria-haspopup="true" aria-expanded="false">Dropdown
       </a>
