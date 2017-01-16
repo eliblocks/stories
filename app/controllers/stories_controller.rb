@@ -2,7 +2,7 @@ class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update, :destroy]
 
   def index
-    @stories = current_user.unblocked_stories.page(params[:page]).per(9)
+    @stories = current_user.unblocked_stories.order(favorites_count: :desc, title: :asc).page(params[:page]).per(3)
     @categories = Category.all
   end
 

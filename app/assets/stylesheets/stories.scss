@@ -3,9 +3,6 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-
-$gray-dark:                 #292b2c !default;
-
 .story-body {
   margin-top: 25px;
 }
@@ -32,8 +29,62 @@ h1 {
   text-align: center;
 }
 
+.favorite, .hide {
+  .button_to {
+  display: inline;
+  }
+  display: inline;
+}
 
 .pagination span {
+  
+  &:first-child {
+    a {
+      margin-left: 0;
+      @include border-left-radius($border-radius);
+    }
+  }
+  &:last-child {
+    a {
+      @include border-right-radius($border-radius);
+    }
+  }
+
+  &.active a {
+    z-index: 2;
+    color: $pagination-active-color;
+    background-color: $pagination-active-bg;
+    border-color: $pagination-active-border;
+  }
+
+  &.disabled a {
+    color: $pagination-disabled-color;
+    pointer-events: none;
+    cursor: $cursor-disabled; // While `pointer-events: none` removes the cursor in modern browsers, we provide a disabled cursor as a fallback.
+    background-color: $pagination-disabled-bg;
+    border-color: $pagination-disabled-border;
+  }
+}
+
+.pagination span a {
+  position: relative;
+  display: block;
+  padding: $pagination-padding-y $pagination-padding-x;
+  margin-left: -1px;
+  line-height: $pagination-line-height;
+  color: $pagination-color;
+  background-color: $pagination-bg;
+  border: $pagination-border-width solid $pagination-border-color;
+
+  @include hover-focus {
+    color: $pagination-hover-color;
+    text-decoration: none;
+    background-color: $pagination-hover-bg;
+    border-color: $pagination-hover-border;
+  }
+}
+
+.pagination .current {
   position: relative;
   display: block;
   padding: $pagination-padding-y $pagination-padding-x;
@@ -50,13 +101,18 @@ h1 {
     border-color: $pagination-hover-border;
   }
 
-  &.current {
-    z-index: 2;
-    color: $pagination-active-color;
-    background-color: $pagination-active-bg;
-    border-color: $pagination-active-border;
-  }
+  color: $pagination-hover-color;
+    text-decoration: none;
+    background-color: $pagination-hover-bg;
+    border-color: $pagination-hover-border;
+  
 }
+
+.pagination { 
+  float: right;
+  margin-right: 15px;
+}
+
 
 
 

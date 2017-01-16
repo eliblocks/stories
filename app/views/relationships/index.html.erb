@@ -1,11 +1,19 @@
-<% @favorites.each do |story| %>
-  <div class="row story-row">
-    <div class="col-md-1 story-favorites">
-      <%= unfollow_button(story, false) %>
-    </div>
-    <div class="col-md-1 story-hidden">
-      <%= follow_button(story, false) %>
-    </div>
-    <%= render 'shared/story_list', story: story %>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <%= paginate @stories %>
   </div>
+</div>
+<% @stories.each do |story| %>
+  <% unless current_user.blocking?(story.user) %>
+    <div class="row story-row">
+      <div class="col-md-8 offset-md-2">
+        <%= render 'shared/story_card', story: story %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <%= paginate @stories %>
+  </div>
+</div>

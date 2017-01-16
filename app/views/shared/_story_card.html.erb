@@ -1,0 +1,25 @@
+
+<div class="card">
+  <div class="card-block">
+    <h6 class="card-title">
+      <%= link_to story.title, story_path(story) %> By
+      <%= link_to story.user.name, user_path(story.user) %>
+    </h6>
+    <%= story.description %>
+  </div>
+  <div class="card-footer">
+    <div class="favorite">
+      <% if current_user.favoriting?(story.user) %>
+        <%= unfollow_button(story, false) %>
+      <% else %>
+        <%= follow_button(story, false) %>
+      <% end %>
+    </div>
+    <div class="hide">
+      <%= follow_button(story, true) %>
+    </div>
+  </div>
+</div>
+
+
+    

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-4">
     <div class="card">
-      <%= image_tag @user.image, class: "card-img-top", alt: "Card image cap" %>
+      <%= image_tag @user.image, class: "card-img-top img-fluid", size: "400x400", alt: "Card image cap" %>
       <div class="card-block">
         <h4 class="card-title"><%= @user.name %></h4>
       </div>
@@ -30,28 +30,26 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6">
-    <table class="table">
-      <thead class="thead">
-        <tr>
-          <th>Title</th>
-          <th>Author</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @user.stories.each do |story| %>
-          <tr>
-            <td><%= link_to story.title, story_path(story) %></td>
-            <td><%= link_to story.user.name, user_path(story.user) %></td>
-            <td>
-                <%= link_to "Edit", edit_story_path(story) %> |
-                <%= link_to "Delete", story_path(story), method: :delete %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+  <div class="col-md-7">
+    <div class="row">
+      <div class="col-md-12">
+        <%= paginate @stories %>
+      </div>
+    </div>
+    <% @stories.each do |story| %>
+      <% unless current_user.blocking?(story.user) %>
+        <div class="row story-row">
+          <div class="col-md-12">
+            <%= render 'shared/story_card', story: story %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="row">
+      <div class="col-md-12">
+        <%= paginate @stories %>
+      </div>
+    </div>
   </div>
 </div>
   

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112024657) do
+ActiveRecord::Schema.define(version: 20170116004146) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -60,8 +60,10 @@ ActiveRecord::Schema.define(version: 20170112024657) do
     t.datetime "updated_time"
     t.boolean  "verified"
     t.string   "email"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "favorites_count"
+    t.integer  "blocks_count"
   end
 
 end

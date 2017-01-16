@@ -3,7 +3,8 @@ class RelationshipsController < ApplicationController
   before_action :set_story, only: [:create, :destroy]
 
   def index
-    @favorites = current_user.favorite_stories
+    @stories = current_user.favorite_stories.page(params[:page]).per(3)
+    @categories = Category.all
   end
 
   def blocked_users
@@ -13,12 +14,14 @@ class RelationshipsController < ApplicationController
   def create
     follow_other_user
     increment_story_count
+    increment_user_count
     redirect_after_vote
   end
 
   def destroy
     current_user.unfollow(other_user)
     decrement_story_count
+    decrement_user_count
     redirect_back fallback_location: root_url
   end
 
@@ -48,6 +51,22 @@ class RelationshipsController < ApplicationController
       Story.decrement_counter(:blocks_count, @relationship.story_id)
     elsif params[:block] = "false"
       Story.decrement_counter(:favorites_count, @relationship.story_id)
+    end
+  end
+
+  def increment_user_count
+    if params[:block] == "true"
+      User.increment_counter(:blocks_count, other_user)
+    elsif params[:block] == "false"
+      User.increment_counter(:favorites_count, other_user)
+    end
+  end
+
+  def decrement_user_count
+    if params[:block] == "true"
+      User.decrement_counter(:blocks_count, other_user)
+    elsif params[:block] == "false"
+      User.decrement_counter(:favorites_count, other_user)
     end
   end
 

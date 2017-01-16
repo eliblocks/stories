@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @email = @user.email
     @first_name = @user.first_name
     @age_group = @user.age_group
+    @stories = @user.stories.page(params[:page]).per(1)
   end
 
   private

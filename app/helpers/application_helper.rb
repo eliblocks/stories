@@ -21,7 +21,7 @@ module ApplicationHelper
   end
 
   def count(object, type)
-    type == true ? object.block_count : object.favorite_count
+    type == true ? object.blocks_count : object.favorites_count
   end
 
   def followed_id(object)

@@ -17,6 +17,7 @@ class Story < ApplicationRecord
     relationships.where(block: true).count
   end
 
+
   def self.reset_favorites_count
     Story.all.each do |story|
       story.update(favorites_count: story.favorite_count)
@@ -28,4 +29,6 @@ class Story < ApplicationRecord
       story.update(blocks_count: story.block_count)
     end
   end
+
+
 end

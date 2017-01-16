@@ -96,12 +96,16 @@ class User < ApplicationRecord
     Story.where.not(user_id: blocking.ids)
   end
 
-  def favorite_count
-    favoriters.count
+  def self.reset_favorites_count
+    User.all.each do |user|
+      user.update(favorites_count: user.favoriters.count)
+    end
   end
 
-  def block_count
-    blockers.count
+  def self.reset_blocks_count
+    User.all.each do |user|
+      user.update(blocks_count: user.blockers.count)
+    end
   end
 
   def process(auth)
