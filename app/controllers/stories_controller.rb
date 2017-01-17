@@ -2,7 +2,7 @@ class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update, :destroy]
 
   def index
-    @stories = current_user.unblocked_stories.order(favorites_count: :desc, title: :asc).page(params[:page]).per(3)
+    @stories = current_user.unblocked_stories.sorted_pages(params)
     @categories = Category.all
   end
 
@@ -52,4 +52,6 @@ class StoriesController < ApplicationController
   def story_params
     params.require(:story).permit(:title, :body, :description, :category_id)
   end
+
+
 end

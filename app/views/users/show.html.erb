@@ -5,12 +5,7 @@
       <div class="card-block">
         <h4 class="card-title"><%= @user.name %></h4>
       </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><%= @user.gender %></li>
-        <li class="list-group-item"><%= @user.email %></li>
-        <li class="list-group-item"><%= @user.age_group %></li>
-      </ul>
-      <div class="card-block">
+      <div class="card-footer">
         <div class="row">
           <div class="col-md-6">
             <% if current_user.favoriting?(@user) %>

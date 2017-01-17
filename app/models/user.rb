@@ -14,6 +14,18 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :facebook_id, presence: true, uniqueness: true
 
+  def self.followed_ids
+    Relationship.select(:followed_id).distinct
+  end
+
+  def self.writers
+    User.where(id: followed_ids)
+  end
+
+  def unblocked_writers
+    User.writers.where.not(id: blocking.ids)
+  end
+
   def following?(other_user)
     following.include?(other_user)
   end
@@ -94,6 +106,10 @@ class User < ApplicationRecord
 
   def unblocked_stories
     Story.where.not(user_id: blocking.ids)
+  end
+
+  def unblocked_users
+    User.where.not(id: blocking.ids)
   end
 
   def self.reset_favorites_count

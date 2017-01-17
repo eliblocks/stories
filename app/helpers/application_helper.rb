@@ -45,11 +45,10 @@ module ApplicationHelper
   end
 
   def active_if(path)
-    if current_page?(path) || path == stories_path && current_page?(root_url)
+    if current_page?(path) || (path == stories_path && current_page?(root_url))
       ' active'
-    elsif path == 'dropdown' && ( params[:action] == 'blocked_users' ||
-                                  params[:controller] == 'users'||
-                                  params[:id] == current_user.id.to_s)
+    elsif path == 'dropdown' && (params[:action] == 'blocked_users') ||
+          path == 'dropdown' && (params[:action] == 'all_users')
       ' active'
     else
      ''

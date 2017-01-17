@@ -1,19 +1,33 @@
-<table class="table">
-  <thead class="thead">
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= link_to user.name, user_path(user) %></td>
-        <td><%= user.email %></td>
-        <td><%= user.age_group %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @users.each_with_index do |user, index| %>
+  <% if index % 5 == 0  || index == 0 %>
+    </div>
+    </div>
+    </div><br>
+    <div class="row">
+    <div class="col-md-10 offset-md-1">
+    <div class="card-group">
+  <% end %>
+  <div class="card">
+    <%= image_tag user.image, class: "card-img-top img-fluid", size: "400x400", alt: "Card image cap" %>
+    <div class="card-block">
+      <h4 class="card-title"><%= user.name %></h4>
+    </div>
+    <div class="card-footer">
+      <% if current_user.favoriting?(user) %>
+        <%= unfollow_button(user, false) %>
+      <% elsif !current_user.blocking?(user) %>
+        <%= follow_button(user, false) %>
+      <% end %>
+      <% if current_user.blocking?(user) %>
+        <%= unfollow_button(user, true) %>
+      <% else %>
+        <%= follow_button(user, true) %>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>
+
+
 
 

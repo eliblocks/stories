@@ -17,7 +17,12 @@
  @import "bootstrap";
  @import "font-awesome";
  @import "stories";
-
+ @import "users";
+ 
  .nav-pills {
   margin-bottom: 15px;
  }
+
+ .navbar dropdown { 
+  float: right;
+}

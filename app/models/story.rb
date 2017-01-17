@@ -30,5 +30,9 @@ class Story < ApplicationRecord
     end
   end
 
+  def self.sorted_pages(params)
+    order(favorites_count: :desc, title: :asc).page(params[:page]).per(3)
+  end
+
 
 end

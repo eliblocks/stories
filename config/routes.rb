@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'login', to: 'sessions#new'
   get 'logout', to: 'sessions#destroy'
   get 'blocked_users', to: 'relationships#blocked_users'
+  get 'users/all_users', to: 'users#all_users', as: 'all_users'
   resources :users
   resources :stories
   resources :relationships
