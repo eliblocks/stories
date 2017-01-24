@@ -22,7 +22,6 @@ task import: [:environment] do
     begin
       user.save!(validate: false)
     rescue
-      debugger
     end
     if Story.pluck(:title).include?(title)
       story = Story.find_by(title: title)
@@ -33,7 +32,6 @@ task import: [:environment] do
     begin
       story.save!
     rescue
-      debugger
     end
   end
 end
