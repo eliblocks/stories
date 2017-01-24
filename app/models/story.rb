@@ -3,11 +3,11 @@ class Story < ApplicationRecord
   belongs_to :category
   has_many :relationships
 
-  validates :title, presence: true, length: { minimum: 3, maximum: 25}
+  validates :title, presence: true, length: { minimum: 3, maximum: 50}
   validates :description, presence: true, uniqueness: true,
             length: { minimum: 10, maximum: 140 }
   validates :body, presence: true, uniqueness: true,
-            length: { minimum: 1000, maximum: 50000 }
+            length: { minimum: 10000, maximum: 30000 }
 
   def favorite_count
     relationships.where(block: false).count
@@ -31,7 +31,7 @@ class Story < ApplicationRecord
   end
 
   def self.sorted_pages(params)
-    order(favorites_count: :desc, title: :asc).page(params[:page]).per(3)
+    order(favorites_count: :desc, title: :asc).page(params[:page]).per(30)
   end
 
 

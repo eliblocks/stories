@@ -55,4 +55,8 @@ module ApplicationHelper
     end
   end
 
+  def blank_image
+    'https://pixabay.com/en/blank-profile-picture-mystery-man-973460/'
+  end
+
 end

@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
   def show
     @categories = Category.all
     @category = Category.find(params[:id])
-    @stories = unblocked_category_stories.page(params[:page]).per(2)
+    @stories = unblocked_category_stories.page(params[:page]).per(30)
     render "stories/index"
   end
 
