@@ -12,17 +12,19 @@
 
 <div class="row">
   <div class="offset-md-2 col-md-2">
-    <% if current_user.favoriting?(@story.user) %>
-      <%= unfollow_button(@story, false) %>
-    <% elsif !current_user.blocking?(@story.user) %>
-      <%= follow_button(@story, false) %>
-    <% end %>
-  </div>
-  <div class="col-md-2">
-    <% if current_user.blocking?(@story.user) %>
-      <%= unfollow_button(@story, true) %>
-    <% else %>
-      <%= follow_button(@story, true) %>
-    <% end %> 
+    <div class="favorite">
+      <% if current_user.favoriting?(@story.user) %>
+        <%= unfollow_button(@story, false) %>
+      <% elsif !current_user.blocking?(@story.user) %>
+        <%= follow_button(@story, false) %>
+      <% end %>
+    </div>
+    <div class="hide">
+      <% if current_user.blocking?(@story.user) %>
+        <%= unfollow_button(@story, true) %>
+      <% else %>
+        <%= follow_button(@story, true) %>
+      <% end %>
+    </div> 
   </div>
 </div>

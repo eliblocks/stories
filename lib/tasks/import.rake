@@ -27,7 +27,7 @@ task import: [:environment] do
       story = Story.find_by(title: title)
       Story.update(description: description, body: body)
     else
-      story = Story.new(title: title, user_id: user.id, description: description, body: body, category_id: 4)
+      story = Story.new(title: title, user_id: user.id, description: description, body: body, category_id: 1)
     end
     begin
       story.save!

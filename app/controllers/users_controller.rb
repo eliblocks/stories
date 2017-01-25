@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show]
 
   def index
-    @users = current_user.unblocked_writers.order(favorites_count: :desc).limit(100)
+    @users = current_user.unblocked_writers.order(favorites_count: :desc).limit(display_limit)
   end
 
   def show
@@ -41,5 +41,15 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email)
+  end
+
+  #Ensure records in multiples of 5 for layout reasons
+  def display_limit
+    num_unblocked = current_user.unblocked_writers.count
+    if num_unblocked < 100
+      return num_unblocked - (num_unblocked % 5)
+    else
+      return 100
+    end
   end
 end
