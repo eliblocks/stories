@@ -18,6 +18,10 @@
  @import "font-awesome";
  @import "stories";
  @import "users";
+
+ .story-body {
+  font-size: 18px;
+ }
  
  .nav-pills {
   margin-bottom: 15px;
@@ -26,3 +30,8 @@
  .navbar dropdown { 
   float: right;
 }
+
+.btn, .nav-link { 
+  cursor: pointer !important;
+}
+

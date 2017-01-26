@@ -1,18 +1,24 @@
-<table class="table">
-  <thead class="thead">
-    <tr>
-      <th>Action</th>
-      <th>Name</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= unfollow_button(user, true) %></td>
-        <td><%= link_to user.name, user_path(user) %></td>
-        <td><%= user.email %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= provide(:title, "Hidden Users") %>
+<% @users.each_with_index do |user, index| %>
+  <% if index % 5 == 0  || index == 0 %>
+    </div>
+    </div>
+    </div><br>
+    <div class="row">
+    <div class="col-md-10 offset-md-1">
+    <div class="card-group">
+  <% end %>
+  <div class="card">
+    <%= image_tag user.image || 'blank_image.png', class: "card-img-top img-fluid", size: "400x400", alt: "Card image cap" %>
+    <div class="card-block">
+      <h4 class="card-title"><%= user.name %></h4>
+    </div>
+    <div class="card-footer">
+      <%= unfollow_button(user, true) %>
+    </div>
+  </div>
+<% end %>
+<% (5 - @users.count % 5).times do |i| %>
+  <div class="card">
+  </div>
+<% end %>
