@@ -114,13 +114,21 @@ class User < ApplicationRecord
 
   def self.reset_favorites_count
     User.all.each do |user|
-      user.update(favorites_count: user.favoriters.count)
+      if user.favoriters.count
+        user.update_attribute(:favorites_count, user.favoriters.count)
+      else
+        user.update_attribute(:favorites_count, 0)
+      end
     end
   end
 
   def self.reset_blocks_count
     User.all.each do |user|
-      user.update(blocks_count: user.blockers.count)
+      if user.favoriters.count
+        user.update_attribute(:blocks_count, user.blockers.count)
+      else
+        user.update_attribute(:blocks_count, 0)
+      end
     end
   end
 
@@ -142,6 +150,8 @@ class User < ApplicationRecord
       self.updated_time = auth.extra.raw_info.updated_time
       self.locale = auth.extra.raw_info.locale
       self.age_range = auth.extra.raw_info.age_range.min.join
+      self.favorites_count = 0
+      self.blocks_count = 0
     end
   end
 

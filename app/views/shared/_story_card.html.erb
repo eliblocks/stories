@@ -16,7 +16,11 @@
       <% end %>
     </div>
     <div class="hide">
-      <%= follow_button(story, true) %>
+      <% if current_user.blocking?(story.user) %>
+        <%= unfollow_button(story, true) %>
+      <% else %>
+        <%= follow_button(story, true) %>
+      <% end %>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-<%= provide(:title, "Hidden Users") %>
+<%= provide(:title, "Hidden Writers") %>
 <% @users.each_with_index do |user, index| %>
   <% if index % 5 == 0  || index == 0 %>
     </div>
@@ -11,7 +11,7 @@
   <div class="card">
     <%= image_tag user.image || 'blank_image.png', class: "card-img-top img-fluid", size: "400x400", alt: "Card image cap" %>
     <div class="card-block">
-      <h4 class="card-title"><%= user.name %></h4>
+      <h4 class="card-title"><%= link_to user.name, user_path(user) %></h4>
     </div>
     <div class="card-footer">
       <%= unfollow_button(user, true) %>

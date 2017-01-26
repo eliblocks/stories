@@ -34,13 +34,11 @@
       </div>
     </div>
     <% @stories.each do |story| %>
-      <% unless current_user.blocking?(story.user) %>
         <div class="row story-row">
           <div class="col-md-12">
             <%= render 'shared/story_card', story: story %>
           </div>
         </div>
-      <% end %>
     <% end %>
     <div class="row">
       <div class="col-md-12">
