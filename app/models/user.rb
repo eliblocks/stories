@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :facebook_id, uniqueness: true, allow_nil: true
 
   def self.followed_ids
-    Relationship.select(:followed_id).distinct
+    Relationship.selec(:followed_id).distinct
   end
 
   def self.writers
