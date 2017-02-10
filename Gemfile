@@ -16,7 +16,6 @@ gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'pdf-reader'
 gem 'font-awesome-rails'
 gem 'kaminari'
-#test
 #gem 'capistrano-rails', group: :development
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
