@@ -29,10 +29,7 @@ task import: [:environment] do
     else
       story = Story.new(title: title, user_id: user.id, description: description, body: body, category_id: 1)
     end
-    begin
-      story.save!
-    rescue
-    end
+    story.save!
   end
 end
 
