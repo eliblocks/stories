@@ -17,6 +17,7 @@ gem 'pdf-reader'
 gem 'font-awesome-rails'
 gem 'kaminari'
 #gem 'capistrano-rails', group: :development
+#test
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test do
