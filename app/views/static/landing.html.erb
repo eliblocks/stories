@@ -1,4 +1,14 @@
-<%= button_to login_path, class: "btn btn-primary", method: :get do %>
-  <i class="fa fa-facebook">  Sign in with Facebook</i>
-<% end %>
-<%= button_to "Guest sign in", 'users/new_guest', class: "btn btn-secondary", method: :get %>
+ <br><div class="row"> 
+  <div class="col-md-8 offset-md-2">
+
+    <div class="jumbotron">
+        <h1 class="display-3">Welcome to Browzable</h1>
+        <p class="lead">Browzable is a place to browse and share short stories</p>
+        <hr class="my-4">
+        <%= button_to login_path, class: "btn btn-primary", method: :get do %>
+          <i class="fa fa-facebook">  Sign in with Facebook</i>
+        <% end %>
+        <%= button_to "Guest sign in", 'users/new_guest', class: "btn btn-secondary", method: :get %>
+    </div>
+  </div>
+</div>
