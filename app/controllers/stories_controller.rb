@@ -1,8 +1,14 @@
 class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user, only: [:create, :edit, :update, :destroy, :new]
+  before_action :authorize_writer, only: [:edit, :update, :destroy]
 
   def index
-    @stories = current_user.unblocked_stories.sorted_pages(params)
+    if logged_in?
+      @stories = current_user.unblocked_stories.sorted_pages(params)
+    else
+      @stories = Story.all.sorted_pages(params)
+    end
     @categories = Category.all
   end
 
@@ -49,9 +55,11 @@ class StoriesController < ApplicationController
     @story = Story.find(params[:id])
   end
 
+  def authorize_writer
+    redirect_to root_path unless @story.user == current_user
+  end
+
   def story_params
     params.require(:story).permit(:title, :body, :description, :category_id)
   end
-
-
 end

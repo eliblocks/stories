@@ -1,6 +1,7 @@
 class RelationshipsController < ApplicationController
   before_action :set_relationship, only: [:destroy]
   before_action :set_story, only: [:create, :destroy]
+  before_action :authenticate_user
 
   def index
     @stories = current_user.favorite_stories.sorted_pages(params)
@@ -97,6 +98,7 @@ class RelationshipsController < ApplicationController
       request.referer == root_url
       redirect_to root_url
     elsif request.referer == user_url(other_user) ||
+      request.referer == all_users_url ||
       request.referer == users_url ||
       request.referer == story_url(@story)
       redirect_back fallback_location: root_url

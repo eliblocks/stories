@@ -155,11 +155,6 @@ class User < ApplicationRecord
     end
   end
 
-  def process_guest(auth)
-    self.email = auth.info.email
-    self.name = auth.info.name
-  end
-
   def age_group
     case self.age_range
     when 'min21'

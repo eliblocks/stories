@@ -10,13 +10,13 @@
   </div>
 </div>
 <% @stories.each do |story| %>
-  <% unless current_user.blocking?(story.user) %>
-    <div class="row story-row">
-      <div class="col-md-8 offset-md-2">
-        <%= render 'shared/story_card', story: story %>
-      </div>
+  <div class="row story-row">
+    <div class="col-md-8 offset-md-2">
+      <%= render 'shared/story_card', story: story %>
     </div>
-  <% end %>
+  </div>
+  
+
 <% end %>
 <div class="row">
   <div class="col-md-8 offset-md-2">

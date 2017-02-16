@@ -1,0 +1,19 @@
+<nav class="navbar navbar-light navbar-toggleable-md bg-faded">
+  <ul class="nav navbar-nav">
+    <li class="nav-item">
+      <%= link_to "Stories", stories_path, class: "nav-link#{active_if(stories_path)}" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Writers", users_path, class: "nav-link#{active_if(users_path)}" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Favorites", login_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Submit", login_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Login", login_path, class: "nav-link" %>
+    </li>
+  </ul>
+</nav>

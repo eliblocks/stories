@@ -1,4 +1,3 @@
-
 <div class="card">
   <div class="card-block">
     <h6 class="card-title">
@@ -8,20 +7,11 @@
     <%= story.description %>
   </div>
   <div class="card-footer">
-    <div class="favorite">
-      <% if current_user.favoriting?(story.user) %>
-        <%= unfollow_button(story, false) %>
-      <% else %>
-        <%= follow_button(story, false) %>
-      <% end %>
-    </div>
-    <div class="hide">
-      <% if current_user.blocking?(story.user) %>
-        <%= unfollow_button(story, true) %>
-      <% else %>
-        <%= follow_button(story, true) %>
-      <% end %>
-    </div>
+      <%= vote_button(story, false) %>
+      <%= vote_button(story, true) %>
+    <% if logged_in? && story.user == current_user %>
+      <%= button_to "edit", edit_story_path(story), class: "btn btn-sm btn-secondary", method: :get %>
+    <% end %>
   </div>
 </div>
 

@@ -1,23 +1,63 @@
 module ApplicationHelper
 
-  def unfollow_button(object, type)
-    unfollow_params = { story_id: story_id(object),
-                        block: type }
-
-    render 'shared/unfollow', unfollow_params: unfollow_params,
+  def vote_button(object, type, size="sm")
+    if logged_in?
+      vote_params = { story_id: story_id(object),
+                      block: type,
+                      followed_id: followed_id(object) }
+      render 'shared/vote', { vote_params: vote_params,
+                              size: size,
                               count: count(object, type),
-                              icon: type == true ? "fa fa-times" : "fa fa-heart",
-                              relationship: find_relationship(object)
+                              icon: icon(type),
+                              path: path(object),
+                              http: http(object),
+                              toggle: toggle(object, type) }
+    else
+      render 'shared/guest_vote', count: count(object, type),
+                                  icon: icon(type)
+    end
   end
 
-  def follow_button(object, type)
-    follow_params = { followed_id: followed_id(object),
-                      story_id: story_id(object),
-                      block: type }
+  def follow?(object)
+    if object.class == Story
+      return !current_user.following?(object.user)
+    elsif object.class == User
+      return !current_user.following?(object)
+    end
+  end
 
-    render 'shared/follow', follow_params: follow_params,
-                            count: count(object, type),
-                            icon: type == true ? "fa fa-times" : "fa fa-heart"
+  def user(object)
+    if object.class == Story
+      object.user
+    else
+      object
+    end
+  end
+
+  def icon(type)
+    type == true ? "fa fa-times" : "fa fa-heart"
+  end
+
+  def toggle(object, type)
+    if (type == false && current_user.favoriting?(user(object))) ||
+        (type == true && current_user.blocking?(user(object)))
+      return "active"
+    else
+      return ""
+    end
+  end
+
+  def path(object)
+    if follow?(object)
+      return relationships_path
+    else
+      relationship = current_user.active_relationship(User.find(followed_id(object)))
+      relationship_path(relationship)
+    end
+  end
+
+  def http(object)
+    follow?(object) ? :post : :delete
   end
 
   def count(object, type)
@@ -40,10 +80,6 @@ module ApplicationHelper
     end
   end
 
-  def find_relationship(object)
-    current_user.active_relationship(User.find(followed_id(object)))
-  end
-
   def active_if(path)
     if current_page?(path) || (path == stories_path && current_page?(root_url))
       ' active'
@@ -58,5 +94,4 @@ module ApplicationHelper
   def blank_image
     'https://pixabay.com/en/blank-profile-picture-mystery-man-973460/'
   end
-
 end

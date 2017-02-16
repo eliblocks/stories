@@ -14,7 +14,7 @@
       <h4 class="card-title"><%= link_to user.name, user_path(user) %></h4>
     </div>
     <div class="card-footer">
-      <%= unfollow_button(user, true) %>
+      <%= vote_button(user, true) %>
     </div>
   </div>
 <% end %>

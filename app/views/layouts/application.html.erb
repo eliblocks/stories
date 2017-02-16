@@ -11,6 +11,8 @@
   <body>
     <% if logged_in? %>
       <%= render 'layouts/nav' %>
+    <% else %>
+      <%= render 'layouts/guest_nav' %>
     <% end %>
     <div class="container-fluid">
       <% flash.each do |message_type, message| %>

@@ -8,22 +8,8 @@
         <h4 class="card-title"><%= @user.name %></h4>
       </div>
       <div class="card-footer">
-        <div class="row">
-          <div class="col-md-6">
-            <% if current_user.favoriting?(@user) %>
-              <%= unfollow_button(@user, false) %>
-            <% elsif !current_user.blocking?(@user) %>
-              <%= follow_button(@user, false) %>
-            <% end %>
-          </div>
-          <div class="col-md-2">
-            <% if current_user.blocking?(@user) %>
-              <%= unfollow_button(@user, true) %>
-            <% else %>
-              <%= follow_button(@user, true) %>
-            <% end %>
-          </div>
-        </div>
+        <%= vote_button(@user, false) %>
+        <%= vote_button(@user, true) %>
       </div>
     </div>
   </div>
