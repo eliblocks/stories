@@ -9,7 +9,7 @@
   <div class="card-footer">
       <%= vote_button(story, false) %>
       <%= vote_button(story, true) %>
-    <% if logged_in? && story.user == current_user %>
+    <% if logged_in? && story.user == @current_user %>
       <%= button_to "edit", edit_story_path(story), class: "btn btn-sm btn-secondary", method: :get %>
     <% end %>
   </div>

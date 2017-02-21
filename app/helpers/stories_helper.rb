@@ -28,8 +28,4 @@ module StoriesHelper
   def italics(text)
     text.gsub(/\*(.*)\*/, '<i>\1</i>')
   end
-
-  def favoriting_story?(story)
-    story.relationships.pluck(:follower_id).include?(current_user.id)
-  end
 end

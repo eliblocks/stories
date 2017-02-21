@@ -14,7 +14,12 @@
       <h4 class="card-title"><%= link_to user.name, user_path(user) %></h4>
     </div>
     <div class="card-footer">
-      <%= vote_button(user, true) %>
+      <%= render 'shared/vote', path: relationship_path(user.passive_relationships.first),
+                                toggle: "active", 
+                                vote_params: {user_id: user.id, type: true},
+                                count: user.blocks_count,
+                                http: :delete, 
+                                icon: "fa fa-times" %>
     </div>
   </div>
 <% end %>

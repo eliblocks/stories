@@ -56,7 +56,7 @@ class User < ApplicationRecord
 
   def block_user(other_user, story = nil)
     if active_relationship(other_user)
-      active_relationship(other_user).destroy
+      active_relationship(other_user).destroy!
     end
     active_relationships.create!(followed_id: other_user.id,
                 block: true, story_id: (story.id if story))
@@ -111,6 +111,7 @@ class User < ApplicationRecord
   def unblocked_users
     User.where.not(id: blocking.ids)
   end
+
 
   def self.reset_favorites_count
     User.all.each do |user|

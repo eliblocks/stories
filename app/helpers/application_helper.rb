@@ -1,74 +1,58 @@
 module ApplicationHelper
 
   def vote_button(object, type, size="sm")
-    if logged_in?
-      vote_params = { story_id: story_id(object),
-                      block: type,
-                      followed_id: followed_id(object) }
-      render 'shared/vote', { vote_params: vote_params,
-                              size: size,
-                              count: count(object, type),
-                              icon: icon(type),
-                              path: path(object),
-                              http: http(object),
-                              toggle: toggle(object, type) }
-    else
-      render 'shared/guest_vote', count: count(object, type),
-                                  icon: icon(type)
-    end
-  end
+    user = get_user(object)
+    relationship = get_relationship(user)
+    debugger
+    vote_params = { user_id: user.id, block: type, story_id: story_id(object) }
 
-  def follow?(object)
-    if object.class == Story
-      return !current_user.following?(object.user)
-    elsif object.class == User
-      return !current_user.following?(object)
-    end
-  end
+    render 'shared/vote', { vote_params: vote_params,
+                            count: count(object, type),
+                            icon: icon(type),
+                            path: path(relationship),
+                            http: http(relationship),
+                            toggle: toggle(relationship, type)
+                            }
 
-  def user(object)
-    if object.class == Story
-      object.user
-    else
-      object
-    end
   end
 
   def icon(type)
-    type == true ? "fa fa-times" : "fa fa-heart"
+    if type == true
+      return "fa fa-times"
+    else
+      return "fa fa-heart"
+    end
   end
 
-  def toggle(object, type)
-    if (type == false && current_user.favoriting?(user(object))) ||
-        (type == true && current_user.blocking?(user(object)))
-      return "active"
+  def toggle(relationship, type)
+    if relationship && relationship.block == type
+      return  "active"
     else
       return ""
     end
   end
 
-  def path(object)
-    if follow?(object)
-      return relationships_path
-    else
-      relationship = current_user.active_relationship(User.find(followed_id(object)))
+  def path(relationship)
+    if relationship
       relationship_path(relationship)
+    else
+      relationships_path
     end
   end
 
-  def http(object)
-    follow?(object) ? :post : :delete
+  def http(relationship)
+    if relationship
+      return :delete
+    else
+      return :post
+    end
   end
 
   def count(object, type)
-    type == true ? object.blocks_count : object.favorites_count
-  end
-
-  def followed_id(object)
-    if object.class == Story
-      return object.user.id
+    if type == true
+      object.blocks_count
     else
-      return object.id
+      object.favorites_count
     end
   end
 
@@ -89,6 +73,29 @@ module ApplicationHelper
     else
      ''
     end
+  end
+
+  def get_user(object)
+    object.class == Story ? object.user : object
+  end
+
+  def get_relationship(user)
+    if following?(user)
+      if show?
+        @relationship
+      elsif index?
+        @relationships.find_by(followed_id: user.id)
+      end
+    end
+  end
+
+  def following?(user)
+    if @relationship
+      return true
+    elsif @following && @following.include?(user)
+      return true
+    end
+    false
   end
 
   def blank_image

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Peek::Railtie => '/peek'
   root 'stories#index'
   get 'landing', to: 'static#landing'
   get 'auth/facebook/callback', to: 'sessions#create'

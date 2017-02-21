@@ -16,13 +16,16 @@ gem 'bootstrap', '~> 4.0.0.alpha6'
 gem 'pdf-reader'
 gem 'font-awesome-rails'
 gem 'kaminari'
+gem 'pg'
+gem 'peek'
+gem 'peek-pg'
+
 #gem 'capistrano-rails', group: :development
-#test
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :development, :test do
   gem 'byebug', platform: :mri
-  gem 'sqlite3'
+  gem 'bullet'
 end
 
 group :development do
@@ -32,9 +35,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-group :production do
-  gem 'pg'
-end
+
 
 
 

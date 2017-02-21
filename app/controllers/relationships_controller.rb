@@ -6,17 +6,18 @@ class RelationshipsController < ApplicationController
   def index
     @stories = current_user.favorite_stories.sorted_pages(params)
     @categories = Category.all
+
   end
 
   def blocked_users
-    @users = current_user.blocking
+    @users = current_user.blocking.joins(:passive_relationships).where(relationships: { follower_id: current_user.id} )
   end
 
   def create
     follow_other_user
     increment_story_count
     increment_user_count
-    redirect_after_vote
+    redirect_back fallback_location: root_url
   end
 
   def destroy
@@ -30,19 +31,19 @@ class RelationshipsController < ApplicationController
 
   def follow_other_user
     if params[:block] == "false"
-      current_user.favorite(other_user, @story)
+      @relationship = current_user.favorite(other_user, @story)
     elsif params[:block] == "true"
       current_user.unfollow(other_user) if current_user.following?(other_user)
-      current_user.block_user(other_user, @story)
+      @relationship = current_user.block_user(other_user, @story)
     else
-      debugger
+      byebug
     end
   end
 
   def increment_story_count
-    if params[:block] == "true" && @story
+    if params[:block] == "true" && @story && @relationship.persisted?
       Story.increment_counter(:blocks_count, @story.id)
-    elsif params[:block] == "false" && @story
+    elsif params[:block] == "false" && @story && @relationship.persisted?
       Story.increment_counter(:favorites_count, @story.id)
     end
   end
@@ -56,9 +57,9 @@ class RelationshipsController < ApplicationController
   end
 
   def increment_user_count
-    if params[:block] == "true"
+    if params[:block] == "true" && @relationship.persisted?
       User.increment_counter(:blocks_count, other_user)
-    elsif params[:block] == "false"
+    elsif params[:block] == "false" && @relationship.persisted?
       User.increment_counter(:favorites_count, other_user)
     end
   end
@@ -72,12 +73,10 @@ class RelationshipsController < ApplicationController
   end
 
   def other_user
-    if params[:followed_id]
-      User.find(params[:followed_id])
-    elsif !params[:story_id].empty?
+    if params[:user_id]
+      User.find(params[:user_id])
+    elsif params[:story_id]
       Story.find(params[:story_id]).user
-    elsif params[:id]
-      User.find(@relationship.followed_id)
     end
   end
 
@@ -90,20 +89,8 @@ class RelationshipsController < ApplicationController
   end
 
   def set_story
-    @story = Story.find(params[:story_id]) unless params[:story_id].empty?
-  end
-
-  def redirect_after_vote
-    if request.referer == stories_url ||
-      request.referer == root_url
-      redirect_to root_url
-    elsif request.referer == user_url(other_user) ||
-      request.referer == all_users_url ||
-      request.referer == users_url ||
-      request.referer == story_url(@story)
-      redirect_back fallback_location: root_url
-    else
-      redirect_back fallback_location: root_url
+    if params[:story_id]
+      @story = Story.find(params[:story_id])
     end
   end
 end

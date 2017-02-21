@@ -17,7 +17,6 @@ class Story < ApplicationRecord
     relationships.where(block: true).count
   end
 
-
   def self.reset_favorites_count
     Story.all.each do |story|
       story.update(favorites_count: story.favorite_count)
@@ -31,8 +30,7 @@ class Story < ApplicationRecord
   end
 
   def self.sorted_pages(params)
-    order(favorites_count: :desc, title: :asc).page(params[:page]).per(30)
+    order(favorites_count: :desc, title: :asc).page(params[:page]).per(3)
   end
-
 
 end

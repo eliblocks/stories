@@ -9,13 +9,14 @@
     <%= paginate @stories %>
   </div>
 </div>
+
 <% @stories.each do |story| %>
+
   <div class="row story-row">
     <div class="col-md-8 offset-md-2">
       <%= render 'shared/story_card', story: story %>
     </div>
   </div>
-  
 
 <% end %>
 <div class="row">
