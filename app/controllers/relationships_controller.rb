@@ -30,10 +30,10 @@ class RelationshipsController < ApplicationController
   private
 
   def follow_other_user
+    current_user.unfollow(other_user) if current_user.following?(other_user)
     if params[:block] == "false"
       @relationship = current_user.favorite(other_user, @story)
     elsif params[:block] == "true"
-      current_user.unfollow(other_user) if current_user.following?(other_user)
       @relationship = current_user.block_user(other_user, @story)
     else
       byebug

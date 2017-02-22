@@ -3,14 +3,14 @@ module ApplicationHelper
   def vote_button(object, type, size="sm")
     user = get_user(object)
     relationship = get_relationship(user)
-    debugger
-    vote_params = { user_id: user.id, block: type, story_id: story_id(object) }
+    vote_params = { user_id: user.id, block: type }
+    vote_params[:story_id] = object.id if object.class == Story
 
     render 'shared/vote', { vote_params: vote_params,
                             count: count(object, type),
                             icon: icon(type),
-                            path: path(relationship),
-                            http: http(relationship),
+                            path: path(relationship, type),
+                            http: http(relationship, type),
                             toggle: toggle(relationship, type)
                             }
 
@@ -32,16 +32,16 @@ module ApplicationHelper
     end
   end
 
-  def path(relationship)
-    if relationship
+  def path(relationship, type)
+    if relationship && type == relationship.block
       relationship_path(relationship)
     else
       relationships_path
     end
   end
 
-  def http(relationship)
-    if relationship
+  def http(relationship, type)
+    if relationship && type == relationship.block
       return :delete
     else
       return :post
@@ -79,24 +79,16 @@ module ApplicationHelper
     object.class == Story ? object.user : object
   end
 
+
+
+
   def get_relationship(user)
-    if following?(user)
-      if show?
-        @relationship
-      elsif index?
-        @relationships.find_by(followed_id: user.id)
-      end
+    if @relationships
+      return @relationships.find { |relationship| relationship.followed_id == user.id }
     end
+    return @relationship
   end
 
-  def following?(user)
-    if @relationship
-      return true
-    elsif @following && @following.include?(user)
-      return true
-    end
-    false
-  end
 
   def blank_image
     'https://pixabay.com/en/blank-profile-picture-mystery-man-973460/'

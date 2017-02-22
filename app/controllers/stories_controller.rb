@@ -6,10 +6,8 @@ class StoriesController < ApplicationController
 
   def index
     if logged_in?
-      @stories = @current_user.unblocked_stories.sorted_pages(params)
-      following_ids = @current_user.following.where(id: @stories.pluck(:user_id)).pluck(:id)
-      @following = User.where(id: following_ids)
-      @relationships = @current_user.active_relationships.where(followed_id: following_ids )
+      @stories = @current_user.unblocked_stories.includes(:user).sorted_pages(params)
+      @relationships = Relationship.where(follower_id: @current_user.id, story_id: @stories.ids)
     else
       @stories = Story.all.sorted_pages(params)
     end
@@ -17,9 +15,7 @@ class StoriesController < ApplicationController
   end
 
   def show
-    if following_object(@story.user)
-      @relationship = @current_user.active_relationship(@story.user)
-    end
+    @relationship = @current_user.active_relationship(@story.user)
   end
 
   def new
@@ -46,7 +42,6 @@ class StoriesController < ApplicationController
     else
       render 'edit'
     end
-
   end
 
   def destroy
@@ -55,33 +50,7 @@ class StoriesController < ApplicationController
     redirect_to request.referrer || root_url
   end
 
-  def relationship(story)
-    if show? && following?(story)
-      @relationship = @relationships.find_by(story_id: story.id)
-    elsif following?(story)
-      @relationship
-    end
-  end
-
-
-  def following_object?(story)
-    if show?
-      @current_user.following?(story.user)
-    else
-      @following.include?(story.user)
-    end
-  end
-
-
   private
-
-  def show?
-    params[:action] == "show"
-  end
-
-  def index
-    params[:action] == "index"
-  end
 
   def set_current_user
     @current_user = current_user
