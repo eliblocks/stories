@@ -2,12 +2,11 @@ class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user, only: [:create, :edit, :update, :destroy, :new]
   before_action :authorize_writer, only: [:edit, :update, :destroy]
-  before_action :set_current_user
 
   def index
     if logged_in?
-      @stories = @current_user.unblocked_stories.includes(:user).sorted_pages(params)
-      @relationships = Relationship.where(follower_id: @current_user.id, story_id: @stories.ids)
+      @stories = current_user.unblocked_stories.includes(:user).sorted_pages(params)
+      @relationships = Relationship.where(follower_id: current_user.id, story_id: @stories.ids)
     else
       @stories = Story.all.sorted_pages(params)
     end
@@ -15,7 +14,7 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @relationship = @current_user.active_relationship(@story.user)
+    @relationship = current_user.active_relationship(@story.user)
   end
 
   def new
@@ -23,7 +22,7 @@ class StoriesController < ApplicationController
   end
 
   def create
-    @story = @current_user.stories.new(story_params)
+    @story = current_user.stories.new(story_params)
     if @story.save
       flash[:success] = "Story successfully created"
       redirect_to stories_path
@@ -51,10 +50,6 @@ class StoriesController < ApplicationController
   end
 
   private
-
-  def set_current_user
-    @current_user = current_user
-  end
 
   def set_story
     @story = Story.find(params[:id])

@@ -1,11 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show]
-  before_action :set_current_user, only: [:index, :show, :all_users]
 
   def index
     if logged_in?
       @users = current_user.unblocked_writers.order(favorites_count: :desc).limit(display_limit)
-      @relationships = Relationship.where(follower_id: @current_user.id, followed_id: @users.ids)
+      @relationships = Relationship.where(follower_id: current_user.id, followed_id: @users.ids)
     else
       @users = User.all.order(favorites_count: :desc).limit(display_limit)
     end
@@ -16,12 +15,12 @@ class UsersController < ApplicationController
     @first_name = @user.first_name
     @age_group = @user.age_group
     @stories = @user.stories.sorted_pages(params)
-    @relationship = @current_user.active_relationship(@user)
+    @relationship = current_user.active_relationship(@user)
   end
 
   def all_users
     @users = User.all.order(favorites_count: :desc)
-    @relationships = Relationship.where(follower_id: @current_user.id, followed_id: @users.ids)
+    @relationships = Relationship.where(follower_id: current_user.id, followed_id: @users.ids)
     render 'index'
   end
 
@@ -42,10 +41,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def set_current_user
-    @current_user = current_user
-  end
 
   def set_user
     @user = User.find(params[:id])
