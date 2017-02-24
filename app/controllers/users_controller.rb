@@ -10,6 +10,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def blocked
+    redirect_to login_path unless logged_in?
+    @users = current_user.blocking.joins(:passive_relationships).where(relationships: { follower_id: current_user.id} )
+    @relationships = Relationship.where(follower_id: current_user.id, followed_id: @users.ids)
+    render 'index'
+  end
+
   def show
     @email = @user.email
     @first_name = @user.first_name

@@ -13,6 +13,14 @@ class StoriesController < ApplicationController
     @categories = Category.all
   end
 
+  def favorites
+    redirect_to login_path unless logged_in?
+    @stories = current_user.favorite_stories.includes(:user).sorted_pages(params)
+    @relationships = Relationship.where(follower_id: current_user.id, story_id: @stories.ids)
+    @categories = Category.all
+    render 'index'
+  end
+
   def show
     @relationship = current_user.active_relationship(@story.user)
   end

@@ -7,7 +7,7 @@
       <%= link_to "Writers", users_path, class: "nav-link#{active_if(users_path)}" %>
     </li>
     <li class="nav-item">
-      <%= link_to "Favorites", relationships_path, class: "nav-link#{active_if(relationships_path)}" %>
+      <%= link_to "Favorites", favorites_path, class: "nav-link#{active_if(favorites_path)}" %>
     </li>
     <li class="nav-item">
       <%= link_to "Submit", new_story_path, class: "nav-link#{active_if(new_story_path)}" %>
@@ -20,7 +20,7 @@
       <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
         <%= link_to "logout", logout_path, class: "dropdown-item" %>
         <%= link_to "Profile", user_path(current_user), class: "dropdown-item" %>
-        <%= link_to "Hidden Writers", blocked_users_path, class: "dropdown-item" %>
+        <%= link_to "Hidden Writers", blocked_path, class: "dropdown-item" %>
         <%= link_to "All users", all_users_path, class: "dropdown-item" %>
       </div>
     </li>

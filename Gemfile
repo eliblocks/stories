@@ -19,6 +19,7 @@ gem 'kaminari'
 gem 'pg'
 gem 'peek'
 gem 'peek-pg'
+gem 'counter_culture', '~> 1.0'
 
 #gem 'capistrano-rails', group: :development
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

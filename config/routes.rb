@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   post 'users/create_guest', to: 'users#create_guest', as: 'create_guest'
   get 'login', to: 'sessions#new'
   get 'logout', to: 'sessions#destroy'
-  get 'blocked_users', to: 'relationships#blocked_users'
+  get 'blocked', to: 'users#blocked', as: 'blocked'
   get 'users/all_users', to: 'users#all_users', as: 'all_users'
+  get '/stories/favorites', to: 'stories#favorites', as: 'favorites'
   resources :users
   resources :stories
   resources :relationships
