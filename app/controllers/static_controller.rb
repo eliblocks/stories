@@ -1,8 +1,5 @@
 class StaticController < ApplicationController
 
-  def landing
-  end
-
-  def after_redirect
+  def requirements
   end
 end
