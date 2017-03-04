@@ -6,7 +6,7 @@ class UsersController < ApplicationController
       @users = current_user.unblocked_writers.order(favorites_count: :desc).limit(1000)
       @relationships = Relationship.where(follower_id: current_user.id, followed_id: @users.collect(&:id))
     else
-      @users = User.writers.order(favorites_count: :desc).limit(display_limit)
+      @users = User.writers.order(favorites_count: :desc).limit(1000)
     end
   end
 
