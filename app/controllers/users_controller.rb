@@ -18,11 +18,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @email = @user.email
-    @first_name = @user.first_name
-    @age_group = @user.age_group
     @stories = @user.stories.sorted_pages(params)
-    @relationship = current_user.active_relationship(@user)
+    @relationship = current_user.active_relationship(@user) if current_user
   end
 
   def all_users

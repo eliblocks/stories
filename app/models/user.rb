@@ -19,7 +19,7 @@ class User < ApplicationRecord
   end
 
   def self.writers
-    User.where(id: followed_ids)
+    User.joins(:stories, :passive_relationships).distinct
   end
 
   def unblocked_writers

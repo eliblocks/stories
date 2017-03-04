@@ -22,7 +22,7 @@ class StoriesController < ApplicationController
   end
 
   def show
-    @relationship = current_user.active_relationship(@story.user)
+    @relationship = current_user.active_relationship(@story.user) if current_user
   end
 
   def new
