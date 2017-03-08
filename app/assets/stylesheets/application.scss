@@ -48,3 +48,55 @@
   z-index: 999;
 }
 
+.stories {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.story-row {
+  margin: 5px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: .25rem;
+}
+
+button:hover {
+  cursor: hand;
+  cursor: pointer;
+  
+}
+
+.fa-heart {
+  font-size: 1.5em;
+}
+
+.fa-times {
+  font-size: 2em;
+}
+
+.button_to {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.vote-col {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+}
+
+.count-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+

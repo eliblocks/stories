@@ -1,27 +1,29 @@
 <%= provide(:title, "Stories") %>
 <div class="row">
   <div class="col-md-8 offset-md-2">
-    <%= render template: 'categories/index' %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-8 offset-md-2">
-    <%= paginate @stories %>
-  </div>
-</div>
-
-<% @stories.each do |story| %>
-
-  <div class="row story-row">
-    <div class="col-md-8 offset-md-2">
-      <%= render 'shared/story_card', story: story %>
+    <div class="row">
+      <div class="col-12">
+        <%= render template: 'categories/index' %>
+      </div>
+    <div class="row">
+      <div class="col-12">
+        <%= paginate @stories %>
+      </div>
     </div>
-  </div> 
-
-<% end %>
-<div class="row">
-  <div class="col-md-8 offset-md-2">
-    <%= paginate @stories %>
+    <div class="row stories">
+      <div class="col-12">
+        <% @stories.each do |story| %>
+          <div class="row story-row">
+            <%= render 'shared/story_card', story: story %>
+          </div> 
+        <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <%= paginate @stories %>
+      </div>
+    </div>
   </div>
 </div>
 

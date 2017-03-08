@@ -18,9 +18,9 @@ module ApplicationHelper
 
   def icon(type)
     if type == true
-      return "fa fa-times"
+      return "fa fa-times fa-fw"
     else
-      return "fa fa-heart"
+      return "fa fa-heart fa-fw"
     end
   end
 
