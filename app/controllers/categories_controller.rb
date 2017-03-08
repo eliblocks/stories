@@ -7,7 +7,11 @@ class CategoriesController < ApplicationController
   def show
     @categories = Category.all
     @category = Category.find(params[:id])
-    @stories = unblocked_category_stories.page(params[:page]).per(30)
+    if logged_in?
+      @stories = unblocked_category_stories.sorted_pages(params)
+    else
+      @stories = @category.stories.sorted_pages(params)
+    end
     render "stories/index"
   end
 
