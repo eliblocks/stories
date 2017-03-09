@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  def vote_button(object, type, size="sm")
+  def vote_button(object, type)
     user = get_user(object)
     relationship = get_relationship(user)
     vote_params = { user_id: user.id, block: type }
@@ -14,6 +14,24 @@ module ApplicationHelper
                             toggle: toggle(relationship, type)
                             }
 
+  end
+
+  def switch(object, type)
+    user = get_user(object)
+    relationship = get_relationship(user)
+    toggle = toggle(relationship, type)
+    icon = icon(type)
+    label = label(type)
+    #count = count(object, type)
+    button_to label,
+              vote_path,
+              params: { vote_type: type, story_id: object.id },
+              class: "btn btn-secondary #{toggle}"
+  end
+
+
+  def label(type)
+    type == true ? "Hidden" : "Favorited"
   end
 
   def icon(type)
@@ -79,9 +97,6 @@ module ApplicationHelper
     object.class == Story ? object.user : object
   end
 
-
-
-
   def get_relationship(user)
     if @relationships
       return @relationships.find { |relationship| relationship.followed_id == user.id }
@@ -89,8 +104,8 @@ module ApplicationHelper
     return @relationship
   end
 
-
   def blank_image
     'https://pixabay.com/en/blank-profile-picture-mystery-man-973460/'
   end
+
 end
