@@ -1,34 +1,20 @@
 module ApplicationHelper
 
-  def vote_button(object, type)
-    user = get_user(object)
-    relationship = get_relationship(user)
-    vote_params = { user_id: user.id, block: type }
-    vote_params[:story_id] = object.id if object.class == Story
-
-    render 'shared/vote', { vote_params: vote_params,
-                            count: count(object, type),
-                            icon: icon(type),
-                            path: path(relationship, type),
-                            http: http(relationship, type),
-                            toggle: toggle(relationship, type)
-                            }
-
-  end
-
   def switch(object, type)
     user = get_user(object)
     relationship = get_relationship(user)
-    toggle = toggle(relationship, type)
-    icon = icon(type)
-    label = label(type)
-    #count = count(object, type)
-    button_to label,
-              vote_path,
-              params: { vote_type: type, story_id: object.id },
-              class: "btn btn-secondary #{toggle}"
+    vars = { object: object,
+            type: type,
+            label: label(type),
+            icon: icon(type),
+            count: count(object, type),
+            toggle: toggle(relationship, type) }
+    if params[:action] == "show"
+      render 'shared/show_vote', vars
+    elsif params[:action] == "index"
+      render 'shared/index_vote', vars
+    end
   end
-
 
   def label(type)
     type == true ? "Hidden" : "Favorited"
@@ -36,9 +22,9 @@ module ApplicationHelper
 
   def icon(type)
     if type == true
-      return "fa fa-times fa-fw"
+      return "fa fa-times"
     else
-      return "fa fa-heart fa-fw"
+      return "fa fa-heart"
     end
   end
 
