@@ -8,8 +8,8 @@
         <h4 class="card-title"><%= @user.name %></h4>
       </div>
       <div class="card-footer">
-        <%= vote_button(@user, false) %>
-        <%= vote_button(@user, true) %>
+        <%= switch(@user, false) %>
+        <%= switch(@user, true) %>
       </div>
     </div>
   </div>
@@ -19,13 +19,15 @@
         <%= paginate @stories %>
       </div>
     </div>
-    <% @stories.each do |story| %>
-        <div class="row story-row">
-          <div class="col-md-12">
-            <%= render 'shared/story_card', story: story %>
-          </div>
-        </div>
-    <% end %>
+    <div class="row stories">
+      <div class="col-12">
+        <% @stories.each do |story| %>
+            <div class="row story-row">
+                <%= render 'shared/story_card', story: story %>
+            </div>
+        <% end %>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-12">
         <%= paginate @stories %>

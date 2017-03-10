@@ -3,20 +3,20 @@ module ApplicationHelper
   def switch(object, type)
     user = get_user(object)
     relationship = get_relationship(user)
-    vars = { object: object,
-            type: type,
-            label: label(type),
+    vars = {label: button_label(type),
             icon: icon(type),
             count: count(object, type),
-            toggle: toggle(relationship, type) }
-    if params[:action] == "show"
+            toggle: toggle(relationship, type),
+            params: { "vote_type" => type, "#{object.class.to_s.downcase}_id" => object.id } }
+
+    if showing?(object)
       render 'shared/show_vote', vars
-    elsif params[:action] == "index"
+    else
       render 'shared/index_vote', vars
     end
   end
 
-  def label(type)
+  def button_label(type)
     type == true ? "Hidden" : "Favorited"
   end
 
@@ -90,8 +90,19 @@ module ApplicationHelper
     return @relationship
   end
 
+  def object_param(object)
+    if object.class == Story
+      return { story_id: object.id }
+    elsif object.class == Story
+      return { user_id: object.id }
+    end
+  end
+
+  def showing?(object)
+    params[:action] == "show" && object.id.to_s == params[:id]
+  end
+
   def blank_image
     'https://pixabay.com/en/blank-profile-picture-mystery-man-973460/'
   end
-
 end

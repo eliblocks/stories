@@ -33,12 +33,8 @@ class RelationshipsController < ApplicationController
 
   def route_vote(user, type, story=nil)
     relationship = Relationship.find_by(follower_id: current_user.id, followed_id: user.id)
-    if relationship
-      unless relationship.block.to_s == type
-        follow(user, type, story)
-      end
-      relationship.destroy!
-    else
+    relationship = relationship.try(:destroy!)
+    unless relationship && relationship.block.to_s == type
       follow(user, type, story)
     end
     redirect_back(fallback_location: root_url)
@@ -47,7 +43,7 @@ class RelationshipsController < ApplicationController
   def follow(user, type, story)
     @relationship = Relationship.new(follower_id: current_user.id,
                                       followed_id: user.id,
-                                      story_id: story.id,
+                                      story_id: story.try(:id),
                                       block: type)
     @relationship.save!
   end

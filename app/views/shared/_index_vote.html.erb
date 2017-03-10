@@ -1,5 +1,5 @@
 
 <%= button_to vote_path, 
-  class: "vote-btn btn-link #{toggle}", params: { vote_type: type, story_id: object.id } do %>
+  class: "vote-btn btn-link #{toggle}", params: params do %>
     <%= content_tag(:i, "", class: icon) %>
 <% end %>
