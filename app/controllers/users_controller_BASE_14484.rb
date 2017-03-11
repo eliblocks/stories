@@ -3,10 +3,10 @@ class UsersController < ApplicationController
 
   def index
     if logged_in?
-      @users = current_user.unblocked_writers.order(favorites_count: :desc).limit(100)
-      @relationships = Relationship.where(follower_id: current_user.id, followed_id: @users.collect(&:id))
+      @users = current_user.unblocked_writers.order(favorites_count: :desc).limit(display_limit)
+      @relationships = Relationship.where(follower_id: current_user.id, followed_id: @users.ids)
     else
-      @users = User.writers.order(favorites_count: :desc).limit(100)
+      @users = User.writers.order(favorites_count: :desc).limit(display_limit)
     end
   end
 
@@ -54,9 +54,17 @@ class UsersController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :email)
   end
 
-<<<<<<< HEAD
-=======
   #Ensure records in multiples of 5 for layout reasons
-
->>>>>>> development
+  def display_limit
+    if logged_in?
+      num_unblocked = current_user.unblocked_writers.count
+    else
+      return 100
+    end
+    if num_unblocked < 100
+      return num_unblocked - (num_unblocked % 5)
+    else
+      return 100
+    end
+  end
 end

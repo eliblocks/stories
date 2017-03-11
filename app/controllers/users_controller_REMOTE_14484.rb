@@ -54,9 +54,6 @@ class UsersController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :email)
   end
 
-<<<<<<< HEAD
-=======
   #Ensure records in multiples of 5 for layout reasons
 
->>>>>>> development
 end

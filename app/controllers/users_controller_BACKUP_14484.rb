@@ -3,10 +3,17 @@ class UsersController < ApplicationController
 
   def index
     if logged_in?
+<<<<<<< HEAD
+      @users = current_user.unblocked_writers.order(favorites_count: :desc).limit(1000)
+      @relationships = Relationship.where(follower_id: current_user.id, followed_id: @users.collect(&:id))
+    else
+      @users = User.writers.order(favorites_count: :desc).limit(1000)
+=======
       @users = current_user.unblocked_writers.order(favorites_count: :desc).limit(100)
       @relationships = Relationship.where(follower_id: current_user.id, followed_id: @users.collect(&:id))
     else
       @users = User.writers.order(favorites_count: :desc).limit(100)
+>>>>>>> development
     end
   end
 
