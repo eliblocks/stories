@@ -99,7 +99,8 @@ module ApplicationHelper
   end
 
   def showing?(object)
-    params[:action] == "show" && object.id.to_s == params[:id]
+    params[:action] == "show" &&
+    params[:controller] == object.class.to_s.downcase.pluralize
   end
 
   def blank_image

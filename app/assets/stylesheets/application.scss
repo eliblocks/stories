@@ -122,6 +122,24 @@ button:hover {
 }
 
 .story-footer {
+  display: flex;
+  justify-content: center;
   border-top: 1px solid gray;
   padding-top: 15px;
+  .button_to {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
 }
+
+.profile-footer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.index-profile-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
