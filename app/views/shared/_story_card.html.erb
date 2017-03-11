@@ -1,19 +1,22 @@
-<div class="card">
-  <div class="card-block">
-    <h6 class="card-title">
-      <%= link_to story.title, story_path(story) %> By
-      <%= link_to story.user.name, user_path(story.user) %>
-    </h6>
-    <%= story.description %>
-  </div>
-  <div class="card-footer">
-      <%= vote_button(story, false) %>
-      <%= vote_button(story, true) %>
-    <% if logged_in? && story.user == current_user %>
-      <%= button_to "edit", edit_story_path(story), class: "btn btn-sm btn-secondary", method: :get %>
-    <% end %>
-  </div>
+<div class="col-md-1 count-col">
+  <%= story.favorites_count %><br>
+</div>
+<div class="col-md-10 details">
+  <h6>
+    <%= link_to story.title, story_path(story) %> By
+    <%= link_to story.user.name, user_path(story.user) %>
+  </h6>
+  <%= story.description %>
+  <% if logged_in? && story.user == current_user %>
+    <%= button_to "edit", edit_story_path(story), class: "btn btn-sm btn-secondary", method: :get %>
+  <% end %>
+</div>
+<div class="col-md-1 vote-col">
+  <%= switch(story, false) %>
+  <%= switch(story, true)%>
 </div>
 
 
-    
+
+
+  

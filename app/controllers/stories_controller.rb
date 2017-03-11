@@ -16,7 +16,8 @@ class StoriesController < ApplicationController
   def favorites
     redirect_to login_path unless logged_in?
     @stories = current_user.favorite_stories.includes(:user).sorted_pages(params)
-    @relationships = Relationship.where(follower_id: current_user.id, story_id: @stories.ids)
+    @relationships = Relationship.where(follower_id: current_user.id,
+                                        followed_id: @stories.collect { |story| story.user.id})
     @categories = Category.all
     render 'index'
   end

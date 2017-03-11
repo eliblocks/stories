@@ -1,19 +1,23 @@
 module ApplicationHelper
 
-  def vote_button(object, type, size="sm")
+  def switch(object, type)
     user = get_user(object)
     relationship = get_relationship(user)
-    vote_params = { user_id: user.id, block: type }
-    vote_params[:story_id] = object.id if object.class == Story
+    vars = {label: button_label(type),
+            icon: icon(type),
+            count: count(object, type),
+            toggle: toggle(relationship, type),
+            params: { "vote_type" => type, "#{object.class.to_s.downcase}_id" => object.id } }
 
-    render 'shared/vote', { vote_params: vote_params,
-                            count: count(object, type),
-                            icon: icon(type),
-                            path: path(relationship, type),
-                            http: http(relationship, type),
-                            toggle: toggle(relationship, type)
-                            }
+    if showing?(object)
+      render 'shared/show_vote', vars
+    else
+      render 'shared/index_vote', vars
+    end
+  end
 
+  def button_label(type)
+    type == true ? "Hidden" : "Favorited"
   end
 
   def icon(type)
@@ -79,9 +83,6 @@ module ApplicationHelper
     object.class == Story ? object.user : object
   end
 
-
-
-
   def get_relationship(user)
     if @relationships
       return @relationships.find { |relationship| relationship.followed_id == user.id }
@@ -89,6 +90,18 @@ module ApplicationHelper
     return @relationship
   end
 
+  def object_param(object)
+    if object.class == Story
+      return { story_id: object.id }
+    elsif object.class == Story
+      return { user_id: object.id }
+    end
+  end
+
+  def showing?(object)
+    params[:action] == "show" &&
+    params[:controller] == object.class.to_s.downcase.pluralize
+  end
 
   def blank_image
     'https://pixabay.com/en/blank-profile-picture-mystery-man-973460/'
