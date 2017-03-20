@@ -1,0 +1,78 @@
+<h1>Overview</h1>
+<p>
+  Browzable.com is a service that allows users to browse and upload short stories on the web.
+
+  This spec is not, by any stretch of the imagination, complete. All of the wording will need to be revised several times before it is finalized. The graphics and layout of the screens is shown here merely to illustrate the underlying functionality. The actual look and feel will be developed over time with the input of graphics designers and iterative user feedback.
+
+  This spec does not discuss technical archietecture of the application, which will be discussed elsewhwere, it simply discusses what the user sees when they interact with Browzable.com
+</p>
+<h1>Scenarios</h1>
+<p>
+  below are two scenarios demonstrating how the application will be used.
+</p>
+<h6>Scenario 1: Lisa</h6>
+<p>
+  Lisa is an office worker at a boring Fortune 500 subdivision. Since Lisa lucked out with a corner cubicle and the office is occasianlly half-empty, Lisa breaks up her work by surfing the web on her desktop monitor. Lisa realizes she spends too much time on facebook and would like something a little more wholesome, and after sutmbling onto Browzable.com she realizes that a short story from 10-40 minutes in length is a superior mid-day productivity waster.
+</p>
+<p>
+  Since Lisa has limited time it's important to her that the stories she reads are high quality. Browzable automatically sorts stories by engagement so by clicking a story with a high score, she usually gets a good read. Sometimes, Lisa reads a particularly good story and makes a mental note of the writer so she can read more stories by her. Fortunately Browzable has a feature to follow writers so that stories can be filtered to include only favorite writers. 
+</p>
+<p> 
+  Although popularity is usually a good indicator of stories Lisa would be interested in, she sometimes encounters stories that other readers like but which are not to her taste. Lisa notices that several of the stories she has wasted time on were by the same author and takes a mental note not to read anything more by that writer. Fortunately Lisa does not need ot have a good memory since browzable makes it easy to blacklist undesirable authors so that the list of popular stories won't include said author ever again. 
+</p>
+<h6>Scenario 2: Sherry</h6>
+<p>
+  Sherry is also an office worker at a boring Fortune 500 company. Sherry is an aspiring writer and has successfully submitted several works to various magazines earning her an impressive $2,000 in the last five years. Since Sherry is lucky enough to have a real job she prioritizes publicity over payments and the real reason she spends time getting her work accepted by magazines is because she hopes to build an audience, get quality feedback, and reference her prior publications in future applications. Sherry is always looking to get "eyeballs" on her stories as long she is properly accredited and has control over editing. 
+</p>
+<p> 
+  A major pain point for Sherry is the time and process it takes to get work accepted by various publications whom all have slightly different requirements for submitting and can take weeks to get back to her with an answer. Also, Sherry does not always agree with reviewers about what would be popular with readers and would like to be judged directly by her audience without worrying about gatekeepers. Sherry has considered self-publisshing but she is not sure it is worth the time. 
+</p>
+<p>
+  After stumbling on Browzable.com Sherry realizes she has nothing to lose by submitting several stories which have not yet been accepted by traditional publications. Sherry is aware that she will not be compensated for her submission, and that many publications will accept previously published content. Nevertheless, the chance to build an audience and test her work for feedback seems worthwhile and she figure that if the story does not get any attention she may still be able to submit it to the magazines she is used to.
+</p>
+
+<h1>Non Goals</h1>
+<p>This Application will not support the following features</p>
+<ul>
+  <li>
+    Following stories - Following a story simply follows the writer of that story, 
+    the user can't access a list of favorite stories. The particular story a user favorites will only be used for ranking stories.
+  </li>
+  <li>
+    Comments - Similar websites have a comment section, which will not be included on this application. In future versions the site may link to social media sites for commenting similar to news websites which have discuss on x links at the end of the article
+  </li>
+</ul>
+
+<h1>Screen by Screen Specification</h1>
+<p>
+  Browzable.com has several screens which are central to the application, and some more which are similar but with important variations.
+  The main screens are the stories index, and the writers index.
+</p> 
+<h1>Main Page</h1>
+<p>
+  Browzable.com routes directly to the main page of the application. Visitors do not need to be logged in to access most of the site content. The main page display a single column of stories on the website, sorted by popularity. If the user is logged in, the listing will filter stories from writers blacklisted by the user. Each story is a row showing the score, title, author and short description up to 140 characters. (perfect for announcing new content on twitter).
+</p>
+<p>
+  Each story will have to action buttons, a button with a heart, and a button with an X. The "Favorite" button will add the writer of the story to the user's favorites list and increase the score of the story. The "Hide" button will do the same, except the story will go to the blacklist and the "hidden" score will be incremented. Only the "favorite" score will be shown on this page and it will be displayed rominently to indicate it's role in sorting the stories.
+</p>
+<h1>Writers Index</h1>
+<p>
+  This page displays all users who have uploaded a story, sorted by the writer favorite score, which is the sum of followers from all stories. Each user is shown with ther facebook profile picture and name. Their favorite and hidden scores are shown on buttons which allow users to perform the follow and hide action on this page as well. Clicking on a writer will take the user to the writer profile page.
+</p>
+<h1>Profile Page</h1>
+<p> 
+  Each user gets a profile page when the sign up. The application imports facebook photos and other basic data, and the Facebook profile picture and facebook name are shown on this page. If a user has submitted any stories, the page will also display ther stories, sorted by popularity. The user's scores and action button will be present as well.
+</p>
+<h1>Favorites Page</h1>
+<p>
+  Here a user can view stories filtered by writers they have favorited. The stories will be listed by order of popularity, so this age is really just a filtered version of the main page. (This page could possibly be generated by using a filter tool on the main page instead).
+</p>
+<h1>Additional Pages</h1>
+<p> 
+  A couple of other pages are available from a drop down menu on the Navbar. This includes a page consisting of hidden writers where users can unhide writers they have previously hidden. There is also a link to logout. 
+</p>
+
+
+
+
+
