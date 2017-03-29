@@ -2,6 +2,7 @@ class StoriesController < ApplicationController
   before_action :set_story, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user, only: [:create, :edit, :update, :destroy, :new]
   before_action :authorize_writer, only: [:edit, :update, :destroy]
+  before_action :set_categories, only: [:index, :favorites, :search]
 
   def index
     if logged_in?
@@ -10,7 +11,6 @@ class StoriesController < ApplicationController
     else
       @stories = Story.all.sorted_pages(params)
     end
-    @categories = Category.all
   end
 
   def favorites
@@ -18,7 +18,6 @@ class StoriesController < ApplicationController
     @stories = current_user.favorite_stories.includes(:user).sorted_pages(params)
     @relationships = Relationship.where(follower_id: current_user.id,
                                         followed_id: @stories.collect { |story| story.user.id})
-    @categories = Category.all
     render 'index'
   end
 
@@ -42,6 +41,13 @@ class StoriesController < ApplicationController
 
   def edit
   end
+
+  def search
+    @term = params[:term]
+    @stories = Story.search(@term)
+    render 'index'
+  end
+
 
   def update
     if @story.update(story_params)
@@ -70,5 +76,9 @@ class StoriesController < ApplicationController
 
   def story_params
     params.require(:story).permit(:title, :body, :description, :category_id)
+  end
+
+  def set_categories
+    @categories = Category.all
   end
 end

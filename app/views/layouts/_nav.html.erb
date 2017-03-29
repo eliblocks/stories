@@ -1,28 +1,34 @@
 <nav class="navbar navbar-light navbar-toggleable-md bg-faded">
-  <ul class="nav navbar-nav">
-    <li class="nav-item">
-      <%= link_to "Stories", stories_path, class: "nav-link#{active_if(stories_path)}" %>
-    </li>
-    <li class="nav-item">
-      <%= link_to "Writers", users_path, class: "nav-link#{active_if(users_path)}" %>
-    </li>
-    <li class="nav-item">
-      <%= link_to "Favorites", favorites_path, class: "nav-link#{active_if(favorites_path)}" %>
-    </li>
-    <li class="nav-item">
-      <%= link_to "Submit", new_story_path, class: "nav-link#{active_if(new_story_path)}" %>
-    </li>
-    <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle<%= active_if('dropdown') %>" href="http://example.com" 
-        id="navbarDropdownMenuLink" data-toggle="dropdown" 
-        aria-haspopup="true" aria-expanded="false">Menu
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-        <%= link_to "logout", logout_path, class: "dropdown-item" %>
-        <%= link_to "Profile", user_path(current_user), class: "dropdown-item" %>
-        <%= link_to "Hidden Writers", blocked_path, class: "dropdown-item" %>
-        <%= link_to "All users", all_users_path, class: "dropdown-item" %>
-      </div>
-    </li>
-  </ul>
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <%= link_to "Stories", stories_path, class: "navbar-brand" %>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <%= link_to "Writers", users_path, class: "nav-link#{active_if(users_path)}" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Favorites", favorites_path, class: "nav-link#{active_if(favorites_path)}" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Submit", new_story_path, class: "nav-link#{active_if(new_story_path)}" %>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle<%= active_if('dropdown') %>" href="http://example.com" 
+          id="navbarDropdownMenuLink" data-toggle="dropdown" 
+          aria-haspopup="true" aria-expanded="false">Menu
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <%= link_to "logout", logout_path, class: "dropdown-item" %>
+          <%= link_to "Profile", user_path(current_user), class: "dropdown-item" %>
+          <%= link_to "Hidden Writers", blocked_path, class: "dropdown-item" %>
+        </div>
+      </li>
+    </ul>
+    <%= form_tag("/search", method: "get", class: "form-inline my-2 my-lg-0") do %>
+      <%= text_field_tag(:term, "", class: "form-control mr-sm-2") %>
+      <%= submit_tag("Search", class: "btn btn-outline-success my-2 my-sm-0") %>
+    <% end %>
+  </div>
 </nav>
