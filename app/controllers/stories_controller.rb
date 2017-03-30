@@ -48,7 +48,6 @@ class StoriesController < ApplicationController
     render 'index'
   end
 
-
   def update
     if @story.update(story_params)
       flash[:success] = "Story successfully edited"

@@ -19,6 +19,8 @@ class Story < ApplicationRecord
     hitsPerPage 30
   end
 
+
+
   def story_length
     if category_id != 1
       if body.length < 10000
