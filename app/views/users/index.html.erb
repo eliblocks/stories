@@ -1,19 +1,28 @@
 <%= provide(:title, "Users") %>
+<%= render 'shared/categories' %>
 <div class="row">
-  <% @users.each do |user| %>
-    <div class="col-md-3">
-      <br><div class="card">
-        <%= image_tag user.image || 'blank_image.png', class: "card-img-top img-fluid", size: "480x480", alt: "Card image cap" %>
-        <div class="card-block">
-          <h4 class="card-title"><%= link_to user.name, user_path(user) %></h4>
-        </div>
-        <div class="card-footer index-profile-footer">
-          <%= switch(user, false) %>
-          <%= switch(user, true) %>
-        </div>
-      </div>
+  <div class="col-10 offset-1">
+    <div class="row">
+
+  
+        <% @users.each do |user| %>
+          <div class="col-md-3 user-card">
+            <div class="card ">
+              <%= image_tag user.image || 'blank_image.png', class: "card-img-top img-fluid", alt: "Card image cap" %>
+              <div class="card-block">
+                <h4 class="card-title"><%= link_to user.name, user_path(user) %></h4>
+              </div>
+              <div class="card-footer index-profile-footer">
+                <%= switch(user, false) %>
+                <%= switch(user, true) %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
     </div>
-  <% end %>
+  </div>
+  
 </div>
 
 

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   #get 'users/all_users', to: 'users#all_users', as: 'all_users'
   get '/stories/favorites', to: 'stories#favorites', as: 'favorites'
   get 'requirements', to: 'static#requirements', as: 'requirements'
+  get 'spec', to: 'static#spec', as: 'spec'
   post '/relationships/vote', to: 'relationships#vote', as: 'vote'
   resources :users
   resources :stories

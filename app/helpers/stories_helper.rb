@@ -26,6 +26,6 @@ module StoriesHelper
   end
 
   def italics(text)
-    text.gsub(/\*(.*)\*/, '<i>\1</i>')
+    text.gsub(/^\*(.*)\*$/, '<i>\1</i>')
   end
 end

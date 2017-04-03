@@ -6,18 +6,20 @@ class StoriesController < ApplicationController
 
   def index
     if logged_in?
-      @stories = current_user.unblocked_stories.includes(:user).sorted_pages(params)
+      @stories = current_user.unblocked_stories.includes(:user).page(params[:page])
       @relationships = Relationship.where(follower_id: current_user.id, story_id: @stories.collect(&:id))
     else
-      @stories = Story.all.sorted_pages(params)
+      @stories = Story.all.page(params[:page])
     end
+    filter_by_category
   end
 
   def favorites
     redirect_to login_path unless logged_in?
-    @stories = current_user.favorite_stories.includes(:user).sorted_pages(params)
+    @stories = current_user.favorite_stories.includes(:user).page(params[:page])
     @relationships = Relationship.where(follower_id: current_user.id,
                                         followed_id: @stories.collect { |story| story.user.id})
+    filter_by_category
     render 'index'
   end
 
@@ -65,6 +67,10 @@ class StoriesController < ApplicationController
 
   private
 
+  def filter_by_category
+    @stories = @stories.where(category_id: params[:category]) if params[:category]
+  end
+
   def set_story
     @story = Story.find(params[:id])
   end
@@ -74,7 +80,7 @@ class StoriesController < ApplicationController
   end
 
   def story_params
-    params.require(:story).permit(:title, :body, :description, :category_id)
+    params.require(:story).permit(:title, :body, :description, :category, :category_id)
   end
 
   def set_categories

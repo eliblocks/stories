@@ -11,6 +11,9 @@ class Story < ApplicationRecord
   validates :body, presence: true, uniqueness: true,
             length: { minimum: 5000, maximum: 60000 }
   validate :story_length
+  default_scope { order(favorites_count: :desc) }
+
+
 
   algoliasearch do
     attribute :title
@@ -19,25 +22,6 @@ class Story < ApplicationRecord
     hitsPerPage 30
   end
 
-
-
-  def story_length
-    if category_id != 1
-      if body.length < 10000
-        errors.add(:body, "Must be greater than 10000 characters")
-      elsif body.length > 30000
-        errors.add(:body, "Must be less than 30000 characters")
-      end
-    end
-  end
-
-  def favorite_count
-    relationships.where(block: false).count
-  end
-
-  def block_count
-    relationships.where(block: true).count
-  end
 
   def self.reset_favorites_count
     Story.all.each do |story|
@@ -51,8 +35,15 @@ class Story < ApplicationRecord
     end
   end
 
-  def self.sorted_pages(params)
-    order(favorites_count: :desc).page(params[:page]).per(30)
+
+  def story_length
+    if category_id != 1
+      if body.length < 10000
+        errors.add(:body, "Must be greater than 10000 characters")
+      elsif body.length > 30000
+        errors.add(:body, "Must be less than 30000 characters")
+      end
+    end
   end
 
   def min_story_length

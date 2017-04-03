@@ -1,9 +1,0 @@
-<ul class="nav nav-pills nav-fill">
-  <% @categories.each do |category| %>
-    <% if params[:id] == category.id.to_s %>
-        <li class="nav-item"><%= link_to category.name, stories_path, class: "nav-link active" %></li>
-    <% else %>
-        <li class="nav-item"><%= link_to category.name, category_path(category), class: "nav-link" %></li>
-    <% end %>
-  <% end %>
-</ul>
