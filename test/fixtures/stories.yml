@@ -3,10 +3,10 @@
 valid_story_one:
   title: The Murderer
   description: Description of the murderer story.
-  body: File.read('pdf/murderer.txt')
+  body: <% File.read('pdf/murderer.txt') %>
 
 valid_story_two:
   title: The Garbage Collector
   description: Short summary of The Garbage Collector.
-  body: <%= File.read('pdf/the_garbage_collector.txt') %>
+  body: <% File.read('pdf/the_garbage_collector.txt') %>
 

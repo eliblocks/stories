@@ -6,13 +6,13 @@
 
   
         <% @users.each do |user| %>
-          <div class="col-md-3 user-card">
+          <div class="col-xl-3 col-md-4 user-card">
             <div class="card ">
               <%= image_tag user.image || 'blank_image.png', class: "card-img-top img-fluid", alt: "Card image cap" %>
               <div class="card-block">
-                <h4 class="card-title"><%= link_to user.name, user_path(user) %></h4>
+                <h5 class="card-title"><%= link_to user.name, user_path(user) %></h4>
               </div>
-              <div class="card-footer index-profile-footer">
+              <div class="profile-footer">
                 <%= switch(user, false) %>
                 <%= switch(user, true) %>
               </div>

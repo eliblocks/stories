@@ -9,7 +9,7 @@ module ApplicationHelper
             toggle: toggle(relationship, type),
             params: { "vote_type" => type, "#{object.class.to_s.downcase}_id" => object.id } }
 
-    if showing?(object)
+    if showing?(object) || (params[:controller] == 'users' && params[:action] == 'index')
       render 'shared/show_vote', vars
     else
       render 'shared/index_vote', vars
@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def button_label(type)
-    type == true ? "Hidden" : "Favorited"
+    type == true ? "Hide" : "Like"
   end
 
   def icon(type)

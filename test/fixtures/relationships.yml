@@ -6,6 +6,6 @@ one:
   block: false
 
 two:
-  follower_id: 1
-  followed_id: 2
+  follower_id: 2
+  followed_id: 1
   block: true

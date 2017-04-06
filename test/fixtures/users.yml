@@ -1,33 +1,33 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  facebook_id: MyString
-  name: MyString
-  first_name: MyString
-  last_name: MyString
-  age_range: MyString
+  facebook_id: 102163503668353
+  name: Betty Seligstein  
+  first_name: Betty
+  last_name: Seligstein
+  age_range: min21
   link: MyString
-  gender: MyString
-  locale: MyString
-  image: MyString
-  picture: MyString
+  gender: Female
+  locale: en_US
+  image: https://scontent.fsnc1-1.fna.fbcdn.net/v/t1.0-9/17796093_102173300334040_3311963281545952899_n.jpg?oh=e990b4b60f7ac9d81b64669ef5673ee6&oe=595998C4
+  picture: https://scontent.fsnc1-1.fna.fbcdn.net/v/t1.0-9/17796093_102173300334040_3311963281545952899_n.jpg?oh=e990b4b60f7ac9d81b64669ef5673ee6&oe=595998C4
   timezone: MyString
   updated_time: 2016-12-20 17:41:02
   verified: false
-  email: MyString
+  email: betty_zsgmjwv_seligstein@tfbnw.net
 
 two:
-  facebook_id: MyString
-  name: MyString
-  first_name: MyString
-  last_name: MyString
-  age_range: MyString
+  facebook_id: 107350839813536
+  name: Harry Lavers
+  first_name: Harry
+  last_name: Lavers
+  age_range: min21
   link: MyString
-  gender: MyString
-  locale: MyString
-  image: MyString
-  picture: MyString
+  gender: Male
+  locale: en_US
+  image: https://scontent.fsnc1-1.fna.fbcdn.net/v/t1.0-9/17796568_107361433145810_9218136347581199603_n.jpg?oh=c9562ffd82e36e9d7f97b7bfee3c8428&oe=5951BCB2
+  picture: https://scontent.fsnc1-1.fna.fbcdn.net/v/t1.0-9/17796568_107361433145810_9218136347581199603_n.jpg?oh=c9562ffd82e36e9d7f97b7bfee3c8428&oe=5951BCB2
   timezone: MyString
   updated_time: 2016-12-20 17:41:02
   verified: false
-  email: MyString
+  email: harry_iiogavd_lavers@tfbnw.net
