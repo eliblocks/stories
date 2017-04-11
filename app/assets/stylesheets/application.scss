@@ -20,6 +20,7 @@
  @import "users";
  @import "peek";*
 
+
  .story-body {
   font-size: 18px;
  }
@@ -29,7 +30,7 @@
  }
 
  .navbar dropdown { 
-  float: right;
+  
 }
 
 .btn, .nav-link { 
@@ -49,8 +50,7 @@
 }
 
 .stories {
-  margin-top: 20px;
-  margin-bottom: 20px;
+
 }
 
 .story-row {
@@ -159,6 +159,46 @@ button:hover {
   padding: 10px;
   display: flex;
 }
+
+nav form {
+  display: flex !important;
+}
+
+
+.toolbar-col {
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+//Pagination
+
+.pagination {
+  @extend .btn-group;
+  .current {
+    @extend .active;
+  }
+  span {
+    @extend .btn;
+    @extend .btn-secondary;
+    a {
+      color: black;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+
+
+
+
+
 
 
 

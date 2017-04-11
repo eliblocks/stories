@@ -1,8 +1,9 @@
-<nav class="navbar navbar-light navbar-toggleable-md bg-faded">
+<nav class="navbar navbar-light navbar-toggleable-sm bg-faded">
   <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <%= link_to "Stories", stories_path, class: "navbar-brand" %>
+ 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
@@ -26,9 +27,13 @@
         </div>
       </li>
     </ul>
-    <%= form_tag("/search", method: "get", class: "form-inline my-2 my-lg-0") do %>
-      <%= text_field_tag(:term, "", class: "form-control mr-sm-2") %>
-      <%= submit_tag("Search", class: "btn btn-outline-success my-2 my-sm-0") %>
-    <% end %>
+    <%= form_tag("/search", method: "get", class: "form-inline") do %>
+      <div class="input-group">
+        <%= text_field_tag(:term, "", class: "form-control") %>
+        <%= button_tag("", type: "submit", class: "btn btn-secondary input-group-addon") do %>
+          <%= content_tag(:span, "", class: "fa fa-search") %>
+        <% end %>
+      </div>
+  <% end %>
   </div>
 </nav>

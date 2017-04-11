@@ -1,9 +1,9 @@
-<ul class="nav nav-pills nav-fill">
+<div class="btn-group" role="group" aria-label="Category Filters">
   <% @categories.each do |category| %>
     <% if params[:category] == category.id.to_s %>
-        <li class="nav-item"><%= link_to category.name, url_for, class: "nav-link active" %></li>
+      <%= link_to category.name, url_for, class: "btn btn-secondary active" %>
     <% else %>
-        <li class="nav-item"><%= link_to category.name, url_for(category: category.id), class: "nav-link" %></li>
+      <%= link_to category.name, url_for(category: category.id), class: "btn btn-secondary" %>
     <% end %>
   <% end %>
-</ul>
+</div>
