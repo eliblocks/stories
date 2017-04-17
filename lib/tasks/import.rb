@@ -18,7 +18,7 @@ task import: [:environment] do
       user.update(image: 'blank_image.png')
     else
       user = User.new(name: writer, image: 'blank_image.png')
-    end
+    ends
     begin
       user.save!(validate: false)
     rescue

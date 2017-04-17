@@ -1,3 +1,4 @@
+
 require 'open-uri'
 require 'nokogiri'
 require 'aws-sdk'
@@ -67,7 +68,6 @@ class StoryBuilder
                         category_id: @category)
   end
 end
-
 
 
 class StorySaver
